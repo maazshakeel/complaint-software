@@ -2,7 +2,7 @@
   "name": "API",
   "version": "1.0.0",
   "description": "Complaint software",
-  "main": "index.js",
+  "main": "src/app.ts",
   "author": "Muhammad",
   "license": "MIT"
 }
