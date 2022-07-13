@@ -12,6 +12,7 @@
     "typescript": "^4.7.4"
   },
   "dependencies": {
+    "@prisma/client": "^4.0.0",
     "dotenv": "^16.0.1",
     "express": "^5.0.0-alpha.8",
     "jsonwebtoken": "^8.5.1",
