@@ -9,7 +9,7 @@ const StackRoot = createNativeStackNavigator()
 const App = () => {
   return (
     <StackRoot.Navigator initialRouteName="Login">
-      <StackRoot.Screen name="Login" component={LoginScreen} />
+      <StackRoot.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
     </StackRoot.Navigator>
   );
 }
