@@ -61,8 +61,25 @@ user.post(
 )
 
 user.post(
-    'api/login',
+    '/api/login',
     async (req: Request, res: Response) => {
+        const { username, password } = req.body
+        async function main() {
+            const response = prisma.client.findUnique({
+              where: {
+                // @ts-ignore
+                email: username,
+              }
+            })
+            return res.json(response)
+        }        
+        main()
+        .catch((e) => {
+            res.json({ status: 'error', error: e.message})
+        })
+        .finally(async () => {
+            await prisma.$disconnect()
+        })
         return res.json({ status: 'success', message: 'User successfuly validated'})
     }
 )
