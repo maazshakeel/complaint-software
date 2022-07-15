@@ -16,9 +16,19 @@ model Client {
   createdAt DateTime @default(now())
   firstName String // @db.VarChar(255)
   lastName  String // @db.VarChar(255)
-  email     String // @db.VarChar(255)
+  cnic      String   @unique
+  email     String   @unique // @db.VarChar(255)
   phoneNo   String   @unique // @db.VarChar(11)
   verified  Boolean  @default(false)
-  blockNo   String // @db.Char(1)
-  homeNo    Int
+  block     String // @db.Char(1)
+  homeNo    String
+  password  String
 }
+
+// model Complaints {
+//   complaint_id Int    @id @default(autoincrement())
+//   clientId     Int
+//   type         Int
+//   ticketNo     Int    @unique
+//   ticketStatus String // @db.VarChar(6)
+// }

@@ -1,26 +1,18 @@
 // imports..
 import env from "dotenv"
 import express, { Request, Response } from 'express'
-import { PrismaClient } from "@prisma/client"
-import jwt from 'jsonwebtoken'
-// @ts-ignore
-import cors from "cors"
+import router from "./routes"
+import bodyParser from 'body-parser'
 
 // app
 const app = express()
+//
+// body-parser
+app.use(express.json({ extended: false }));
+app.use(express.json());
 
-// middlewares
-app.use(express.json())
-app.use(
-    cors({
-        origin: "*"
-    })
-)
-
-// prisma client
-const prisma = new PrismaClient()
-
-// routes...
+// routes
+app.use(router)
 
 // running server
 app.listen(3000, () => console.log("Server is running!"))
