@@ -5,8 +5,8 @@ interface ICircleProps {
   resolved: boolean
 }
 
-const Circle: FC<ICircleProps> = resolved => {
-  if (resolved) {
+const Circle: FC<ICircleProps> = props => {
+  if (!props.resolved) {
     return (
       <View
         style={{

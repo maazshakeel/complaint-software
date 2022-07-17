@@ -1,17 +1,16 @@
 import { ScrollView, StatusBar } from 'native-base'
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { Header, Text } from 'react-native-elements'
 import HL from '../components/hr'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import ComplaintList from '../components/ComplaintLists'
 import Circle from '../components/Circle'
-// import { Avatar } from '@rneui/themed'
 
 export default function Dashbaord() {
   return (
     // @ts-ignore
-    <View>
+    <View style={{ flex: 1 }}>
       <StatusBar barStyle="dark-content" />
       {/* @ts-ignore */}
       <View style={styles.profileContainer}>
@@ -50,6 +49,9 @@ export default function Dashbaord() {
         </View>
       </View>
       <ComplaintList />
+      <TouchableOpacity style={{ position: 'absolute', right: 12, bottom: 12 }}>
+        <Image source={require('../assets/edit-icon.png')} />
+      </TouchableOpacity>
     </View>
   )
 }

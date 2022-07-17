@@ -5,7 +5,9 @@ import Row from './Row'
 const ComplaintList: FC = () => {
   return (
     <ScrollView>
-      <Row ticketNumber={'32233'} resolved={false} />
+      <Row resolved={false} ticketNumber={33245} />
+      <Row resolved={true} ticketNumber={99322} />
+      <Row resolved={true} ticketNumber={32932} />
     </ScrollView>
   )
 }

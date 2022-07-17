@@ -8,6 +8,7 @@ import {
 } from 'react-native'
 import { Text } from 'react-native-elements'
 import Circle from './Circle'
+import ComplaintCardBottomButton from './ComplaintCardBottomButton'
 
 // height, width
 const { height, width } = Dimensions.get('screen')
@@ -20,20 +21,22 @@ interface IRowProps {
   resolved: boolean
 }
 
-const resolved = false
-const ticketNumber = 33245
+// const resolved = false
+// const ticketNumber = 33245
 
-const Row: FC = () => {
+const Row: FC<IRowProps> = props => {
   return (
     <View style={styles.rowContainer}>
       <View style={styles.complaintHeading}>
         <View style={{ display: 'flex', flexDirection: 'row' }}>
-          <Circle resolved={resolved} />
+          <Circle resolved={props.resolved} />
           <Text style={{ paddingLeft: 10 }}>
-            {resolved ? <Text>Resolved</Text> : <Text>In Progress</Text>}
+            {props.resolved ? <Text>Resolved</Text> : <Text>In Progress</Text>}
           </Text>
         </View>
-        <Text style={{ color: '#554949' }}>Ticket no. #{ticketNumber}</Text>
+        <Text style={{ color: '#554949' }}>
+          Ticket no. #{props.ticketNumber}
+        </Text>
       </View>
       <View style={{ alignItems: 'center' }}>
         <TouchableOpacity>
@@ -61,34 +64,12 @@ const Row: FC = () => {
                 justifyContent: 'space-between'
               }}
             >
-              <TouchableOpacity
-                style={{
-                  width: 145,
-                  height: 54,
-                  marginLeft: 10,
-                  borderColor: '#495DC3',
-                  borderWidth: 1,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  borderRadius: 6
-                }}
-              >
-                <Text style={{ fontSize: 15, color: '#495DC3' }}>Withdraw</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{
-                  width: 145,
-                  height: 54,
-                  borderColor: '#495DC3',
-                  borderWidth: 1,
-                  alignItems: 'center',
-                  marginRight: 10,
-                  justifyContent: 'center',
-                  borderRadius: 6
-                }}
-              >
-                <Text style={{ fontSize: 15, color: '#495DC3' }}>Track</Text>
-              </TouchableOpacity>
+              <ComplaintCardBottomButton resolved={props.resolved} />
+              {/* {!props.resolved ? (
+                <ComplaintCardBottomButton />
+              ) : (
+                <Text>Nothing</Text>
+              )} */}
             </View>
           </View>
         </TouchableOpacity>
@@ -101,7 +82,7 @@ export default Row
 
 const styles = StyleSheet.create({
   rowContainer: {
-    padding: 30
+    padding: 15
   },
   complaintHeading: {
     display: 'flex',
@@ -109,7 +90,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   complaintCard: {
-    marginTop: 10,
+    marginTop: 7,
     width: width - 37,
     // height: height - 1399,
     height: 219,
