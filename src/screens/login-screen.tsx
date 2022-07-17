@@ -6,7 +6,8 @@ import {
   View,
   Image,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  Alert
 } from 'react-native'
 import colors from '../assets/colors'
 import Icon from 'react-native-vector-icons/FontAwesome5'
@@ -16,7 +17,18 @@ import { useNavigation } from '@react-navigation/core'
 export default function LoginScreen() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [buttonDisabled, setButtonDisabled] = useState(true)
   const navigation = useNavigation()
+
+  const logIn = () => {
+    if (!email || !password) {
+      Alert.alert(
+        "Field Missing"
+      ) 
+      return;
+    }
+    navigation.navigate('Dashboard') 
+  }
 
   return (
     <View style={styles.container}>
@@ -50,7 +62,10 @@ export default function LoginScreen() {
         <View
           style={{ display: 'flex', flexDirection: 'row', marginLeft: wp(3) }}
         >
-          <TouchableOpacity style={[styles.loginBtn, styles.rigt]}>
+          <TouchableOpacity 
+            style={[styles.loginBtn, styles.rigt]}
+            onPress={logIn}
+            >
             {/* @ts-ignore */}
             <Text style={styles.loginText}>Login</Text>
           </TouchableOpacity>

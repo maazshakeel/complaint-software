@@ -2,98 +2,77 @@ import express, { application, Request, response, Response} from 'express'
 import { PrismaClient } from "@prisma/client"
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
+import bodyParser from 'body-parser'
 
-const user = express.Router()
+const router = express.Router()
+app.use(bodyParser.json()) // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true }))
+
+const app = express()
 
 // prisma client
 const prisma = new PrismaClient()
 
-user.post(
+router.post(
     '/api/register',
     async (req: Request, res: Response) => {
-        const { firstName, lastName, cnic, email, phoneNo, verified, block, homeNo, password } = req.body
-        // console.log(`${firstName} - ${lastName} - ${cnic} + ${typeof(cnic)} - ${phoneNo} + ${typeof(phoneNo)} - ${verified} - ${block} + ${typeof(block)} - ${homeNo} + ${typeof(homeNo)} - ${password}`)
+        const { firstName, lastName, cnic, block, houseNo, email, phoneNo, password } = req.body
 
         // validation
-        if (!firstName || !lastName || !cnic || !email || !phoneNo || verified === null || !block || !homeNo || !password) {
-            return res.json({ status: 'error', message: "Fields missing!"})
+        if (!firstName || !lastName || !cnic || !block || !houseNo || !email || !password) {
+            return res.send({ status: 'error', message: "Field missing!"})
         }
         if (password.length < 5) {
-            return res.json({ status: 'error', message: "Password is too small!"})
-        }
-        if (cnic.length < 12) {
-            return res.json({ status: 'error', message: "CNIC is not valid!"})
-        }
-        if (phoneNo.length < 10) {
-          return res.json({ status: 'error', message: "Phone Number is not valid!"})
+            return res.send({ status: 'error', message: "Password is too small!"})
         }
 
         // hasing the password
         const hashedPass = bcrypt.hash(password, 10)
-        console.log(hashedPass)
 
         // creating client
         async function main() {
             const response = await prisma.client.create({
                 data: {
-                    firstName,
-                    lastName,
-                    // @ts-ignore
-                    cnic: cnic,
+                    firstName: firstName,
+                    lastName: lastName,
                     email: email,
                     phoneNo: phoneNo,
-                    verified: verified,
-                    block,
-                    homeNo,
-                    password,
+                    blockNo: block,
+                    homeNo: houseNo,
+                    password: hashedPass,
+                    verified: false,
                 }
             })
-          return res.json({ status: 'success', data: "User successfully registered!"})
         }
         main()
         .catch((e) => {
-            res.json({ status: 'error', error: e.message})
+            res.send({ status: 'error', error: e})
         })
         .finally(async () => {
             await prisma.$disconnect()
         })
+        return res.send({ status: 'success', data: "User successfully registered!"})
+
     }
 )
 
-user.post(
-    '/api/login',
+router.post(
+    'api/login',
     async (req: Request, res: Response) => {
-        const { username, password } = req.body
-        async function main() {
-            const response = prisma.client.findUnique({
-              where: {
-                // @ts-ignore
-                email: username,
-              }
-            })
-            return res.json(response)
-        }        
-        main()
-        .catch((e) => {
-            res.json({ status: 'error', error: e.message})
-        })
-        .finally(async () => {
-            await prisma.$disconnect()
-        })
-        return res.json({ status: 'success', message: 'User successfuly validated'})
+        return res.send({ status: 'success', message: 'User successfuly validated'})
     }
 )
 
-user.get(
+router.get(
     '/api/client_data',
     async (req: Request, res: Response) => {
         async function main() {
-            const response = await prisma.client.findMany() 
-            return res.json(response)
+            const response = await prisma.client.findFirst() 
+            return res.send(response)
         }
         main()
         .catch((e) => {
-            res.json({ status: 'error', error: e})
+            res.send({ status: 'error', error: e})
         })
         .finally(async () => {
             await prisma.$disconnect()
@@ -101,4 +80,4 @@ user.get(
     }
 )
 
-export default user;
+export default router;
