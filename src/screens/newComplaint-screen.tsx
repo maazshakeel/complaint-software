@@ -63,6 +63,12 @@ export default function NewComplaint() {
             <Text style={{ color: '#E1C6CC', fontSize: 13 }}>Security</Text>
           </ProblemCard>
         </TouchableOpacity>
+        <TouchableOpacity style={{ marginLeft: width / 2 - 55 }}>
+          <ProblemCard backcolor="#F7F2F3">
+            <Image source={require('../assets/three-dots.png')} />
+            <Text style={{ color: '#E1C6CC', fontSize: 13 }}>Others</Text>
+          </ProblemCard>
+        </TouchableOpacity>
       </View>
     </View>
   )
