@@ -7,8 +7,12 @@ import HL from '../components/hr'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import ComplaintList from '../components/ComplaintLists'
 import Circle from '../components/Circle'
+import { useNavigation } from '@react-navigation/native'
 
 export default function Dashbaord() {
+  // navigation
+  const navigation = useNavigation()
+
   return (
     <View style={{ flex: 1 }}>
       <StatusBar barStyle="dark-content" />
@@ -53,7 +57,10 @@ export default function Dashbaord() {
       </View>
       <ComplaintList />
       {/* Whenever user will try to create a new complaint we'll navigate to another screen */}
-      <TouchableOpacity style={{ position: 'absolute', right: 12, bottom: 12 }}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('New Complaint')}
+        style={{ position: 'absolute', right: 12, bottom: 12 }}
+      >
         <Image source={require('../assets/edit-icon.png')} />
       </TouchableOpacity>
     </View>
