@@ -33,6 +33,36 @@ export default function NewComplaint() {
             <Text style={{ color: '#F1D1A8', fontSize: 13 }}>Cleaning</Text>
           </ProblemCard>
         </TouchableOpacity>
+        <TouchableOpacity>
+          <ProblemCard backcolor="#F0F8FA">
+            <Image source={require('../assets/Electrical.png')} />
+            <Text style={{ color: '#9ACFD4', fontSize: 13 }}>Electrical</Text>
+          </ProblemCard>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <ProblemCard backcolor="#FFEFE0">
+            <Image source={require('../assets/plumbing-icon.png')} />
+            <Text style={{ color: '#F1D1A8', fontSize: 13 }}>Plumbing</Text>
+          </ProblemCard>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <ProblemCard backcolor="#FEF6F6">
+            <Image source={require('../assets/network.png')} />
+            <Text style={{ color: '#FDCECE', fontSize: 13 }}>Network</Text>
+          </ProblemCard>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <ProblemCard backcolor="#F0F8FA">
+            <Image source={require('../assets/parking.png')} />
+            <Text style={{ color: '#9ACFD4', fontSize: 13 }}>Parking</Text>
+          </ProblemCard>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <ProblemCard backcolor="#F7F2F3">
+            <Image source={require('../assets/security.png')} />
+            <Text style={{ color: '#E1C6CC', fontSize: 13 }}>Security</Text>
+          </ProblemCard>
+        </TouchableOpacity>
       </View>
     </View>
   )
