@@ -1,3 +1,4 @@
+// imports
 import {
   View,
   Text,
@@ -10,11 +11,13 @@ import React from 'react'
 import ProblemCard from '../components/problemCard'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
+// getting height and width of screen
 const { height, width } = Dimensions.get('screen')
 
 export default function NewComplaint() {
   return (
     <>
+      {/* container */}
       <View style={styles.container}>
         <Text style={styles.textHeading}>
           Choose the category under which your complaint falls.
