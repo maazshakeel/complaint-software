@@ -6,7 +6,7 @@ const HL: FC = () => {
     // @ts-ignore
     <View
       style={{
-        borderBottomColor: 'B2ACAC',
+        borderBottomColor: '#B2ACAC',
         borderBottomWidth: 1
       }}
     />
