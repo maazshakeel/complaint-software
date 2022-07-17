@@ -1,3 +1,4 @@
+// imports
 import { ScrollView, StatusBar } from 'native-base'
 import React from 'react'
 import { View, StyleSheet, Image, TouchableOpacity } from 'react-native'
@@ -9,16 +10,17 @@ import Circle from '../components/Circle'
 
 export default function Dashbaord() {
   return (
-    // @ts-ignore
     <View style={{ flex: 1 }}>
       <StatusBar barStyle="dark-content" />
-      {/* @ts-ignore */}
+      {/* Profile - Pending */}
       <View style={styles.profileContainer}>
         <Text h3 style={{ paddingBottom: 20 }}>
           Profile
         </Text>
       </View>
+      {/* Hover line */}
       <HL />
+      {/* Filter */}
       <View style={styles.filterSectionContainer}>
         <View
           style={{
@@ -34,7 +36,8 @@ export default function Dashbaord() {
           </Text>
           <Text style={{ color: '#554949' }}>All Categories</Text>
         </View>
-        <View
+        {/* Whenever user would click, user will be able to filter somehow */}
+        <TouchableOpacity
           style={{
             display: 'flex',
             flexDirection: 'row'
@@ -46,9 +49,10 @@ export default function Dashbaord() {
             style={{ paddingRight: 10, paddingTop: 3 }}
           />
           <Text style={{ paddingRight: 10 }}>Filters</Text>
-        </View>
+        </TouchableOpacity>
       </View>
       <ComplaintList />
+      {/* Whenever user will try to create a new complaint we'll navigate to another screen */}
       <TouchableOpacity style={{ position: 'absolute', right: 12, bottom: 12 }}>
         <Image source={require('../assets/edit-icon.png')} />
       </TouchableOpacity>
