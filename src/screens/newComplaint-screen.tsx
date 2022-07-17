@@ -1,6 +1,15 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+  Image
+} from 'react-native'
 import React from 'react'
 import ProblemCard from '../components/problemCard'
+
+const { height, width } = Dimensions.get('screen')
 
 export default function NewComplaint() {
   return (
@@ -19,38 +28,10 @@ export default function NewComplaint() {
         }}
       >
         <TouchableOpacity>
-          <ProblemCard
-            type="Electrical"
-            backcolor="#F0F8FA"
-            textcolor="#9ACFD4"
-          />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <ProblemCard
-            type="Plumbing"
-            backcolor="#FFEFE0"
-            textcolor="#F1D1A8"
-          />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <ProblemCard type="Network" backcolor="#F7F2F3" textcolor="#E1C6CC" />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <ProblemCard
-            type="Hoticulture"
-            backcolor="#FEF6F6"
-            textcolor="#FDCECE"
-          />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <ProblemCard
-            type="Cleaning"
-            backcolor="#FFEFE0"
-            textcolor="#F1D1A8"
-          />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <ProblemCard type="Parking" backcolor="#F7F2F3" textcolor="#E1C6CC" />
+          <ProblemCard backcolor="#FFEFE0">
+            <Image source={require('../assets/cleaning.png')} />
+            <Text style={{ color: '#F1D1A8', fontSize: 13 }}>Cleaning</Text>
+          </ProblemCard>
         </TouchableOpacity>
       </View>
     </View>

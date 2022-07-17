@@ -1,13 +1,11 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Image } from 'react-native'
 import React, { FC } from 'react'
 
 interface IProblemCardProps {
-  type: string
-  textcolor: string
   backcolor: string
 }
 
-const ProblemCard: FC<IProblemCardProps> = ({ backcolor, textcolor, type }) => {
+const ProblemCard: FC<IProblemCardProps> = props => {
   return (
     <View
       style={{
@@ -18,12 +16,12 @@ const ProblemCard: FC<IProblemCardProps> = ({ backcolor, textcolor, type }) => {
         height: 115,
         marginTop: 10,
         marginRight: 10,
-        borderColor: backcolor,
+        borderColor: props.backcolor,
         borderWidth: 1,
-        backgroundColor: backcolor
+        backgroundColor: props.backcolor
       }}
     >
-      <Text style={{ color: textcolor, fontSize: 13 }}>{type}</Text>
+      {props.children}
     </View>
   )
 }
