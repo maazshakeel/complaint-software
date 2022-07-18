@@ -207,6 +207,7 @@ export default function ComplaintDetails({ route, navigation }) {
           style={{ alignItems: 'center', paddingTop: 15, paddingBottom: 15 }}
         >
           <TouchableOpacity
+            onPress={() => navigation.navigate('Complaint Confirmation')}
             style={{
               backgroundColor: '#2F5FE3',
               width: width - 47,
