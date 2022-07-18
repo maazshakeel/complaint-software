@@ -10,7 +10,8 @@ CREATE TABLE "Client" (
     "verified" BOOLEAN NOT NULL DEFAULT false,
     "block" TEXT NOT NULL,
     "homeNo" TEXT NOT NULL,
-    "password" TEXT NOT NULL
+    "password" TEXT NOT NULL,
+    "token" TEXT NOT NULL
 );
 
 -- CreateIndex
