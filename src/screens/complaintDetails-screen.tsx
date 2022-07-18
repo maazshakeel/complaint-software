@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import colors from '../assets/colors'
 import { useNavigation } from '@react-navigation/native'
 import HL from '../components/hr'
-import { CheckBox } from 'react-native-elements'
+import { CheckBox, Input } from 'react-native-elements'
 import { problems } from '../components/problems'
 
 export default function ComplaintDetails({ route, navigation }) {
@@ -12,6 +12,9 @@ export default function ComplaintDetails({ route, navigation }) {
   const [isChecked2, setIsChecked2] = useState(false)
   const [isChecked3, setIsChecked3] = useState(false)
   const [isChecked4, setIsChecked4] = useState(false)
+
+  const [details, setDetails] = useState('')
+
   const { type } = route.params
   // Captlizing first letter
   const firstCh = type.charAt(0).toUpperCase() + type.slice(1)
@@ -75,6 +78,23 @@ export default function ComplaintDetails({ route, navigation }) {
           checked={isChecked4}
           onPress={() => setIsChecked4(!isChecked4)}
         />
+        <View style={{ paddingTop: 10 }}>
+          <HL width={10} />
+        </View>
+        <Text style={{ fontSize: 22, left: 13, paddingTop: 10 }}>
+          Add Details
+        </Text>
+        <Text
+          style={{ fontSize: 15, left: 15, paddingTop: 3, color: '#C6C2C5' }}
+        >
+          Details you think is important for us to know.
+        </Text>
+        <Input
+          placeholder="Comment"
+          leftIcon={{ type: 'font-awesome', name: 'info' }}
+          onChangeText={value => setDetails({ details: value })}
+        />
+        <HL width={10} />
       </View>
     </View>
   )
