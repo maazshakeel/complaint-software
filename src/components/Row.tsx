@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native'
 import React, { FC } from 'react'
 import {
   View,
@@ -25,6 +26,7 @@ interface IRowProps {
 // const ticketNumber = 33245
 
 const Row: FC<IRowProps> = props => {
+  const navigation = useNavigation()
   return (
     <View style={styles.rowContainer}>
       <View style={styles.complaintHeading}>
@@ -39,7 +41,7 @@ const Row: FC<IRowProps> = props => {
         </Text>
       </View>
       <View style={{ alignItems: 'center' }}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('View')}>
           <View style={styles.complaintCard}>
             <View style={{ display: 'flex', flexDirection: 'row' }}>
               <Image

@@ -23,6 +23,7 @@ const ComplaintCardBottomButton: FC = props => {
           <Text style={{ fontSize: 15, color: '#495DC3' }}>Withdraw</Text>
         </TouchableOpacity>
         <TouchableOpacity
+          onPress={() => navigation.navigate('Track')}
           style={{
             width: 145,
             height: 54,

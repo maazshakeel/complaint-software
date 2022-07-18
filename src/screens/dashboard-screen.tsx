@@ -18,9 +18,8 @@ export default function Dashbaord() {
       <StatusBar barStyle="dark-content" />
       {/* Profile - Pending */}
       <View style={styles.profileContainer}>
-        <Text h3 style={{ paddingBottom: 20 }}>
-          Profile
-        </Text>
+        <Image source={require('../assets/static-profile.png')} />
+        <Text style={{ fontSize: 27, marginRight: 21 }}>Muhammad Irfan</Text>
       </View>
       {/* Hover line */}
       <HL width={1} />
@@ -69,9 +68,12 @@ export default function Dashbaord() {
 
 const styles = StyleSheet.create({
   profileContainer: {
-    marginTop: 100,
-    alignItems: 'center',
+    marginTop: 75,
+    marginLeft: 10,
     display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
     marginBottom: 35
   },
   filterSectionContainer: {

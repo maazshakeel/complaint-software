@@ -15,7 +15,7 @@ import ProfilePic from '../components/ProfilePic'
 // height, width
 const { height, width } = Dimensions.get('screen')
 
-export default function TrackComplaint() {
+export default function ComplaintView() {
   return (
     <View style={{ flex: 1, backgroundColor: '#FAF9FE' }}>
       <View style={{ left: 4, top: 75 }}>
