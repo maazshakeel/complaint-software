@@ -15,6 +15,7 @@ import { CheckBox, Input } from 'react-native-elements'
 import { problems } from '../components/problems'
 import * as ImagePicker from 'expo-image-picker'
 import Icon from 'react-native-vector-icons/FontAwesome5'
+import ImagePick from '../components/ImagePick'
 
 // getting height and width of screen
 const { height, width } = Dimensions.get('screen')
@@ -26,33 +27,12 @@ export default function ComplaintDetails({ route, navigation }) {
   const [isChecked3, setIsChecked3] = useState(false)
   const [isChecked4, setIsChecked4] = useState(false)
 
-  const [pickedImagePath, setPickedImagePath] = useState('')
   const [details, setDetails] = useState('')
 
   const { type } = route.params
   // Captlizing first letter
   const firstCh = type.charAt(0).toUpperCase() + type.slice(1)
   const complaintType = firstCh
-
-  // picking up the image from the gallery
-  const showImagePicker = async () => {
-    // Asking permission
-    const permissionResult =
-      await ImagePicker.requestMediaLibraryPermissionsAsync()
-    if (permissionResult.granted === false) {
-      alert("You've refused to allow this appp to access your photos!")
-      return
-    }
-    const result = await ImagePicker.launchImageLibraryAsync()
-
-    // Explore the result
-    console.log(result)
-
-    if (!result.cancelled) {
-      setPickedImagePath(result.uri)
-      console.log(result.uri)
-    }
-  }
 
   return (
     <View style={{ flex: 1 }}>
@@ -158,33 +138,7 @@ export default function ComplaintDetails({ route, navigation }) {
           Photos helps us to find best staff and loads for your needs as soon as
           possible.
         </Text>
-        <TouchableOpacity onPress={showImagePicker} style={{ paddingTop: 10 }}>
-          <View
-            style={{
-              borderColor: '#000',
-              borderWidth: 3,
-              borderRadius: 10,
-              borderStyle: 'dotted',
-              width: width - 37,
-              alignSelf: 'center',
-              height: 157
-            }}
-          >
-            <View
-              style={{
-                alignItems: 'center',
-                paddingTop: 35
-              }}
-            >
-              <Icon name="images" size={50} />
-            </View>
-          </View>
-        </TouchableOpacity>
-        <View style={{ padding: 30 }}>
-          {pickedImagePath !== '' && (
-            <Image source={{ uri: pickedImagePath }} style={styles.image} />
-          )}
-        </View>
+        <ImagePick />
         <View style={{ height: 200 }} />
       </ScrollView>
     </View>
@@ -196,11 +150,5 @@ const styles = StyleSheet.create({
     // backgroundColor: `#${colors.backgroundColor}`
     flex: 1,
     backgroundColor: 'green'
-  },
-  image: {
-    width: width - 37,
-    height: 157,
-    alignSelf: 'center',
-    resizeMode: 'cover'
   }
 })
