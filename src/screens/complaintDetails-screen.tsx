@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native'
 import HL from '../components/hr'
 import { CheckBox, Input } from 'react-native-elements'
 import { problems } from '../components/problems'
+import * as ImagePicker from 'expo-image-picker'
 
 export default function ComplaintDetails({ route, navigation }) {
   // state
@@ -90,7 +91,7 @@ export default function ComplaintDetails({ route, navigation }) {
           Details you think is important for us to know.
         </Text>
         <Input
-          placeholder="Comment"
+          placeholder="Details"
           leftIcon={{ type: 'font-awesome', name: 'info' }}
           onChangeText={value => setDetails({ details: value })}
         />
