@@ -4,6 +4,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Image,
   Dimensions
 } from 'react-native'
 import React, { useState } from 'react'
@@ -25,12 +26,34 @@ export default function ComplaintDetails({ route, navigation }) {
   const [isChecked3, setIsChecked3] = useState(false)
   const [isChecked4, setIsChecked4] = useState(false)
 
+  const [pickedImagePath, setPickedImagePath] = useState('')
   const [details, setDetails] = useState('')
 
   const { type } = route.params
   // Captlizing first letter
   const firstCh = type.charAt(0).toUpperCase() + type.slice(1)
   const complaintType = firstCh
+
+  // picking up the image from the gallery
+  const showImagePicker = async () => {
+    // Asking permission
+    const permissionResult =
+      await ImagePicker.requestMediaLibraryPermissionsAsync()
+    if (permissionResult.granted === false) {
+      alert("You've refused to allow this appp to access your photos!")
+      return
+    }
+    const result = await ImagePicker.launchImageLibraryAsync()
+
+    // Explore the result
+    console.log(result)
+
+    if (!result.cancelled) {
+      setPickedImagePath(result.uri)
+      console.log(result.uri)
+    }
+  }
+
   return (
     <View style={{ flex: 1 }}>
       <View
@@ -135,7 +158,7 @@ export default function ComplaintDetails({ route, navigation }) {
           Photos helps us to find best staff and loads for your needs as soon as
           possible.
         </Text>
-        <TouchableOpacity style={{ paddingTop: 10 }}>
+        <TouchableOpacity onPress={showImagePicker} style={{ paddingTop: 10 }}>
           <View
             style={{
               borderColor: '#000',
@@ -144,7 +167,7 @@ export default function ComplaintDetails({ route, navigation }) {
               borderStyle: 'dotted',
               width: width - 37,
               alignSelf: 'center',
-              height: 127
+              height: 157
             }}
           >
             <View
@@ -157,6 +180,11 @@ export default function ComplaintDetails({ route, navigation }) {
             </View>
           </View>
         </TouchableOpacity>
+        <View style={{ padding: 30 }}>
+          {pickedImagePath !== '' && (
+            <Image source={{ uri: pickedImagePath }} style={styles.image} />
+          )}
+        </View>
         <View style={{ height: 200 }} />
       </ScrollView>
     </View>
@@ -168,5 +196,11 @@ const styles = StyleSheet.create({
     // backgroundColor: `#${colors.backgroundColor}`
     flex: 1,
     backgroundColor: 'green'
+  },
+  image: {
+    width: width - 37,
+    height: 157,
+    alignSelf: 'center',
+    resizeMode: 'cover'
   }
 })
