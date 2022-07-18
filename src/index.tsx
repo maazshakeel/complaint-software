@@ -6,6 +6,7 @@ import LoginScreen from './screens/login-screen'
 import RegisterScreen from './screens/register-screen'
 import Dashbaord from './screens/dashboard-screen'
 import NewComplaint from './screens/newComplaint-screen'
+import ComplaintDetails from './screens/complaintDetails-screen'
 
 const StackRoot = createNativeStackNavigator()
 
@@ -33,6 +34,16 @@ const App = () => {
         options={{
           headerShown: true,
           headerTitle: 'New Complaint',
+          headerTitleAlign: 'center',
+          headerTransparent: true
+        }}
+      />
+      <StackRoot.Screen
+        name="Complaint Details"
+        component={ComplaintDetails}
+        options={{
+          headerShown: true,
+          headerTitle: 'Complaint Details',
           headerTitleAlign: 'center',
           headerTransparent: true
         }}

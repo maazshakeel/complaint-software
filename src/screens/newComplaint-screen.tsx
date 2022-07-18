@@ -10,11 +10,13 @@ import {
 import React from 'react'
 import ProblemCard from '../components/problemCard'
 import Icon from 'react-native-vector-icons/FontAwesome5'
+import { useNavigation } from '@react-navigation/native'
 
 // getting height and width of screen
 const { height, width } = Dimensions.get('screen')
 
 export default function NewComplaint() {
+  const navigation = useNavigation()
   return (
     <>
       {/* container */}
@@ -32,43 +34,86 @@ export default function NewComplaint() {
             justifyContent: 'space-between'
           }}
         >
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('Complaint Details', {
+                type: 'cleaner'
+              })
+            }
+          >
             <ProblemCard backcolor="#FFEFE0">
               <Image source={require('../assets/cleaning.png')} />
               <Text style={{ color: '#F1D1A8', fontSize: 13 }}>Cleaning</Text>
             </ProblemCard>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('Complaint Details', {
+                type: 'electrical'
+              })
+            }
+          >
             <ProblemCard backcolor="#F0F8FA">
               <Image source={require('../assets/Electrical.png')} />
               <Text style={{ color: '#9ACFD4', fontSize: 13 }}>Electrical</Text>
             </ProblemCard>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('Complaint Details', {
+                type: 'plumbing'
+              })
+            }
+          >
             <ProblemCard backcolor="#FFEFE0">
               <Image source={require('../assets/plumbing-icon.png')} />
               <Text style={{ color: '#F1D1A8', fontSize: 13 }}>Plumbing</Text>
             </ProblemCard>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('Complaint Details', {
+                type: 'network'
+              })
+            }
+          >
             <ProblemCard backcolor="#FEF6F6">
               <Image source={require('../assets/network.png')} />
               <Text style={{ color: '#FDCECE', fontSize: 13 }}>Network</Text>
             </ProblemCard>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('Complaint Details', {
+                type: 'parking'
+              })
+            }
+          >
             <ProblemCard backcolor="#F0F8FA">
               <Image source={require('../assets/parking.png')} />
               <Text style={{ color: '#9ACFD4', fontSize: 13 }}>Parking</Text>
             </ProblemCard>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('Complaint Details', {
+                type: 'security'
+              })
+            }
+          >
             <ProblemCard backcolor="#F7F2F3">
               <Image source={require('../assets/security.png')} />
               <Text style={{ color: '#E1C6CC', fontSize: 13 }}>Security</Text>
             </ProblemCard>
           </TouchableOpacity>
-          <TouchableOpacity style={{ marginLeft: width / 2 - 55 }}>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('Complaint Details', {
+                type: 'others'
+              })
+            }
+            style={{ marginLeft: width / 2 - 55 }}
+          >
             <ProblemCard backcolor="#F7F2F3">
               <Image source={require('../assets/three-dots.png')} />
               <Text style={{ color: '#E1C6CC', fontSize: 13 }}>Others</Text>
@@ -89,6 +134,7 @@ export default function NewComplaint() {
             display: 'flex',
             flexDirection: 'row'
           }}
+          onPress={() => navigation.navigate('Complaint Details')}
         >
           <Text style={{ fontSize: 18, color: '#FFF', marginRight: 7 }}>
             Next
