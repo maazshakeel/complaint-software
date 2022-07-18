@@ -9,6 +9,7 @@ import NewComplaint from './screens/newComplaint-screen'
 import ComplaintDetails from './screens/complaintDetails-screen'
 import ComplaintConfirmation from './screens/complaintConfirmation-screen'
 import WithdrawComplaint from './screens/withdrawComplaint-screen'
+import TrackComplaint from './screens/trackComplaint-screen'
 
 const StackRoot = createNativeStackNavigator()
 
@@ -66,6 +67,16 @@ const App = () => {
         options={{
           headerShown: true,
           headerTitle: 'Withdraw Complaint',
+          headerTitleAlign: 'center',
+          headerTransparent: true
+        }}
+      />
+      <StackRoot.Screen
+        name="Track"
+        component={TrackComplaint}
+        options={{
+          headerShown: true,
+          headerTitle: 'Track Complaint',
           headerTitleAlign: 'center',
           headerTransparent: true
         }}
