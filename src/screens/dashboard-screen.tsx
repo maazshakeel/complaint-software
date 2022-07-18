@@ -23,7 +23,7 @@ export default function Dashbaord() {
         </Text>
       </View>
       {/* Hover line */}
-      <HL />
+      <HL width={1} />
       {/* Filter */}
       <View style={styles.filterSectionContainer}>
         <View

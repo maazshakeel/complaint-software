@@ -1,13 +1,17 @@
 import React, { FC } from 'react'
 import { View } from 'react-native'
 
-const HL: FC = () => {
+interface IHrProps {
+  width: number
+}
+
+const HL: FC<IHrProps> = ({ width }) => {
   return (
     // @ts-ignore
     <View
       style={{
-        borderBottomColor: '#B2ACAC',
-        borderBottomWidth: 1
+        borderBottomColor: '#E4E4E5',
+        borderBottomWidth: width
       }}
     />
   )
