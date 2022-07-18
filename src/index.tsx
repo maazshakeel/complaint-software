@@ -8,6 +8,7 @@ import Dashbaord from './screens/dashboard-screen'
 import NewComplaint from './screens/newComplaint-screen'
 import ComplaintDetails from './screens/complaintDetails-screen'
 import ComplaintConfirmation from './screens/complaintConfirmation-screen'
+import WithdrawComplaint from './screens/withdrawComplaint-screen'
 
 const StackRoot = createNativeStackNavigator()
 
@@ -55,6 +56,16 @@ const App = () => {
         options={{
           headerShown: true,
           headerTitle: 'Confirmation',
+          headerTitleAlign: 'center',
+          headerTransparent: true
+        }}
+      />
+      <StackRoot.Screen
+        name="Withdraw Complaint"
+        component={WithdrawComplaint}
+        options={{
+          headerShown: true,
+          headerTitle: 'Withdraw Complaint',
           headerTitleAlign: 'center',
           headerTransparent: true
         }}

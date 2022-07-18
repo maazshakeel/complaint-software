@@ -77,6 +77,7 @@ export default function ComplaintConfirmation({ navigation }) {
         }}
       >
         <TouchableOpacity
+          onPress={() => navigation.goBack()}
           style={{
             width: width - 37,
             height: 54,

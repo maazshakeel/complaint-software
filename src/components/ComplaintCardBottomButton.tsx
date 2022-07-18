@@ -6,6 +6,7 @@ const ComplaintCardBottomButton: FC = props => {
     return (
       <>
         <TouchableOpacity
+          onPress={() => props.navigation.navigate('Withdraw Complaint')}
           style={{
             width: 145,
             height: 54,
