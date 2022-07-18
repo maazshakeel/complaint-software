@@ -26,11 +26,23 @@ router.post(
             return res.send({ status: 'error', message: "Password is too small!"})
         }
 
-        // hasing the password
-        const hashedPass = bcrypt.hash(password, 10)
-
         // creating client
         async function main() {
+            // check if user already exists
+            // Validate if user exists in our database
+            const oldUser = await prisma.client.findUnique({ 
+                where: {
+                    email: req.body.email
+                }
+            })
+            
+            if (oldUser) {
+                res.send({ status: 'error', message: "User already exists. Please login."})
+            }
+
+            // hasing the password
+            const hashedPass = await bcrypt.hash(password, 10)
+
             const response = await prisma.client.create({
                 data: {
                     firstName: firstName,
