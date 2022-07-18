@@ -61,7 +61,7 @@ const App = () => {
         }}
       />
       <StackRoot.Screen
-        name="Withdraw Complaint"
+        name="Withdraw"
         component={WithdrawComplaint}
         options={{
           headerShown: true,

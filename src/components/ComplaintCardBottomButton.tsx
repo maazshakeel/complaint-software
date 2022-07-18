@@ -1,12 +1,14 @@
+import { useNavigation } from '@react-navigation/native'
 import React, { FC } from 'react'
 import { View, TouchableOpacity, Text } from 'react-native'
 
 const ComplaintCardBottomButton: FC = props => {
+  const navigation = useNavigation()
   if (!props.resolved) {
     return (
       <>
         <TouchableOpacity
-          onPress={() => props.navigation.navigate('Withdraw Complaint')}
+          onPress={() => navigation.navigate('Withdraw')}
           style={{
             width: 145,
             height: 54,
