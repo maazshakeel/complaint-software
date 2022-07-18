@@ -119,7 +119,21 @@ export default function WithdrawComplaint() {
           <Text style={{ paddingRight: 2, fontSize: 10 }}>•</Text>
           <Text style={{ fontSize: 10 }}>27 reviews</Text>
         </View>
-        <ComplaintCardBottomButton />
+        <TouchableOpacity
+          style={{
+            width: 300,
+            height: 54,
+            marginLeft: 10,
+            marginBottom: 10,
+            borderColor: '#495DC3',
+            borderWidth: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 6
+          }}
+        >
+          <Text style={{ fontSize: 15, color: '#495DC3' }}>Withdraw</Text>
+        </TouchableOpacity>
       </ScrollView>
     </View>
   )

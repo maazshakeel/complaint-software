@@ -6,14 +6,7 @@ const ComplaintCardBottomButton: FC = props => {
   const navigation = useNavigation()
   if (!props.resolved) {
     return (
-      <View
-        style={{
-          display: 'flex',
-          paddingRight: 10,
-          flexDirection: 'row',
-          justifyContent: 'space-between'
-        }}
-      >
+      <>
         <TouchableOpacity
           onPress={() => navigation.navigate('Withdraw')}
           style={{
@@ -43,7 +36,7 @@ const ComplaintCardBottomButton: FC = props => {
         >
           <Text style={{ fontSize: 15, color: '#495DC3' }}>Track</Text>
         </TouchableOpacity>
-      </View>
+      </>
     )
   }
   return (
