@@ -26,6 +26,8 @@ export default function ComplaintDetails({ route, navigation }) {
   const [isChecked2, setIsChecked2] = useState(false)
   const [isChecked3, setIsChecked3] = useState(false)
   const [isChecked4, setIsChecked4] = useState(false)
+  // urgent complaint
+  const [urgentComplaint, setUrgentComplaint] = useState(false)
 
   const [details, setDetails] = useState('')
 
@@ -139,7 +141,90 @@ export default function ComplaintDetails({ route, navigation }) {
           possible.
         </Text>
         <ImagePick />
-        <View style={{ height: 200 }} />
+
+        <View style={{ paddingBottom: 10 }}>
+          <HL width={10} />
+        </View>
+
+        <Text style={{ fontSize: 22, left: 13, paddingTop: 10 }}>
+          Preffered slots for resolution?
+        </Text>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            paddingTop: 35
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              width: 145,
+              height: 54,
+              marginLeft: 20,
+              borderColor: '#495DC3',
+              borderWidth: 1,
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 6
+            }}
+          >
+            <Text style={{ fontSize: 15, color: '#495DC3' }}>
+              7:00 - 11:00 AM
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              width: 145,
+              height: 54,
+              borderColor: '#495DC3',
+              borderWidth: 1,
+              alignItems: 'center',
+              marginRight: 20,
+              justifyContent: 'center',
+              borderRadius: 6
+            }}
+          >
+            <Text style={{ fontSize: 15, color: '#495DC3' }}>
+              4:00 - 7:00 PM
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View style={{ paddingTop: 20 }}>
+          <HL width={10} />
+        </View>
+        <CheckBox
+          title="Is the complaint urgent?"
+          checkedIcon="dot-circle-o"
+          uncheckedIcon="circle-o"
+          checked={urgentComplaint}
+          onPress={() => setUrgentComplaint(!urgentComplaint)}
+        />
+        <View style={{ paddingTop: 10, paddingBottom: 40 }}>
+          <HL width={10} />
+        </View>
+        <View
+          style={{ alignItems: 'center', paddingTop: 15, paddingBottom: 15 }}
+        >
+          <TouchableOpacity
+            style={{
+              backgroundColor: '#2F5FE3',
+              width: width - 47,
+              height: 54,
+              borderRadius: 10,
+              alignItems: 'center',
+              justifyContent: 'center',
+              bottom: 30,
+              display: 'flex',
+              flexDirection: 'row'
+            }}
+          >
+            <Text style={{ fontSize: 20, color: '#FFF', marginRight: 7 }}>
+              Submit
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View style={{ height: 100 }} />
       </ScrollView>
     </View>
   )
