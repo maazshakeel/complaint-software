@@ -4,6 +4,7 @@ import {
   Text,
   Image,
   TouchableOpacity,
+  ScrollView,
   StyleSheet
 } from 'react-native'
 import React from 'react'
@@ -71,13 +72,13 @@ export default function WithdrawComplaint() {
           </View>
         </View>
       </View>
-      <View style={{ bottom: 30 }}>
+      <View style={{ bottom: 30, marginBottom: -30 }}>
         <StatusCard ticketNumber="#32442" resolved={false} />
       </View>
-      <View style={{ marginLeft: 17 }}>
+      <ScrollView style={{ flex: 1, marginLeft: 17 }}>
         <Text
           style={{
-            marginTop: -32,
+            marginTop: -2,
             marginLeft: 3,
             marginRight: 10,
             color: '#776D6D',
@@ -119,7 +120,7 @@ export default function WithdrawComplaint() {
           <Text style={{ fontSize: 10 }}>27 reviews</Text>
         </View>
         <ComplaintCardBottomButton />
-      </View>
+      </ScrollView>
     </View>
   )
 }
