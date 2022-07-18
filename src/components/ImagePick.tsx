@@ -43,30 +43,76 @@ export default function ImagePick() {
       </View>
     )
   }
+  // This function is triggered when the "Open camera" button pressed
+  const openCamera = async () => {
+    // Ask the user for the permission to access the camera
+    const permissionResult = await ImagePicker.requestCameraPermissionsAsync()
+
+    if (permissionResult.granted === false) {
+      alert("You've refused to allow this appp to access your camera!")
+      return
+    }
+
+    const result = await ImagePicker.launchCameraAsync()
+
+    // Explore the result
+    console.log(result)
+
+    if (!result.cancelled) {
+      setPickedImagePath(result.uri)
+      console.log(result.uri)
+    }
+  }
   return (
     <>
-      <TouchableOpacity onPress={showImagePicker} style={{ paddingTop: 10 }}>
-        <View
-          style={{
-            borderColor: '#000',
-            borderWidth: 3,
-            borderRadius: 10,
-            borderStyle: 'dotted',
-            width: width - 37,
-            alignSelf: 'center',
-            height: 300
-          }}
+      <View>
+        <TouchableOpacity
+          onPress={showImagePicker}
+          style={{ paddingTop: 10, paddingBottom: 10 }}
         >
           <View
             style={{
-              alignItems: 'center',
-              paddingTop: 95
+              borderColor: '#000',
+              borderWidth: 3,
+              borderRadius: 10,
+              borderStyle: 'dotted',
+              width: width - 37,
+              alignSelf: 'center',
+              height: 300
             }}
           >
-            <Icon name="images" size={65} />
+            <View
+              style={{
+                alignItems: 'center',
+                paddingTop: 95
+              }}
+            >
+              <Icon name="images" size={65} />
+            </View>
           </View>
-        </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </View>
+      <View style={{ alignItems: 'center', paddingTop: 25 }}>
+        <TouchableOpacity
+          style={{
+            backgroundColor: '#2F5FE3',
+            width: width - 47,
+            height: 54,
+            borderRadius: 10,
+            alignItems: 'center',
+            justifyContent: 'center',
+            bottom: 30,
+            display: 'flex',
+            flexDirection: 'row'
+          }}
+          onPress={openCamera}
+        >
+          <Text style={{ fontSize: 20, color: '#FFF', marginRight: 7 }}>
+            Open Camera
+          </Text>
+          <Icon name="camera" size={27} />
+        </TouchableOpacity>
+      </View>
     </>
   )
 }
