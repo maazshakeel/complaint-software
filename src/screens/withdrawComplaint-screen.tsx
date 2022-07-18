@@ -8,6 +8,8 @@ import {
 } from 'react-native'
 import React from 'react'
 import ComplaintCardBottomButton from '../components/ComplaintCardBottomButton'
+import StatusCard from '../components/StatusCard'
+import ProfilePic from '../components/ProfilePic'
 
 // height, width
 const { height, width } = Dimensions.get('screen')
@@ -15,8 +17,8 @@ const { height, width } = Dimensions.get('screen')
 export default function WithdrawComplaint() {
   return (
     <View style={{ flex: 1, backgroundColor: '#FAF9FE' }}>
-      <View style={{ left: 4, top: 85 }}>
-        <TouchableOpacity>
+      <View style={{ left: 4, top: 75 }}>
+        <View>
           <View style={styles.complaintCard}>
             <View style={{ display: 'flex', flexDirection: 'row' }}>
               <Image
@@ -67,7 +69,56 @@ export default function WithdrawComplaint() {
               </View>
             </View>
           </View>
-        </TouchableOpacity>
+        </View>
+      </View>
+      <View style={{ bottom: 30 }}>
+        <StatusCard ticketNumber="#32442" resolved={false} />
+      </View>
+      <View style={{ marginLeft: 17 }}>
+        <Text
+          style={{
+            marginTop: -32,
+            marginLeft: 3,
+            marginRight: 10,
+            color: '#776D6D',
+            fontSize: 21
+          }}
+        >
+          Attending Staff
+        </Text>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center'
+          }}
+        >
+          <ProfilePic />
+          <Text
+            style={{
+              fontSize: 18,
+              paddingLeft: 7,
+              paddingBottom: 20
+            }}
+          >
+            Kashif Javed
+          </Text>
+        </View>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            bottom: 35,
+            left: 80
+          }}
+        >
+          <Text style={{ paddingRight: 2, fontSize: 10 }}>4.6</Text>
+          <Text style={{ paddingRight: 2, fontSize: 10 }}>•</Text>
+          <Text style={{ paddingRight: 2, fontSize: 10 }}>127 resolutions</Text>
+          <Text style={{ paddingRight: 2, fontSize: 10 }}>•</Text>
+          <Text style={{ fontSize: 10 }}>27 reviews</Text>
+        </View>
+        <ComplaintCardBottomButton />
       </View>
     </View>
   )

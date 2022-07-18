@@ -2,11 +2,12 @@ import React, { FC } from 'react'
 import { View } from 'react-native'
 
 interface ICircleProps {
-  resolved: boolean
+  isDone: boolean
+  inProgress?: boolean
 }
 
 const Circle: FC<ICircleProps> = props => {
-  if (!props.resolved) {
+  if (!props.isDone) {
     return (
       <View
         style={{
