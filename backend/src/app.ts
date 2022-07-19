@@ -6,7 +6,7 @@ import bodyParser from 'body-parser'
 
 // app
 const app = express()
-//
+
 // body-parser
 app.use(express.json({ extended: false }));
 app.use(express.json());
