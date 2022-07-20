@@ -22,4 +22,4 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
   return next();
 };
 
-module.exports = verifyToken;
+export { verifyToken }
