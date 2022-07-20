@@ -42,18 +42,40 @@ const createUser = async (req: Request, res: Response) => {
                 block: block,
                 homeNo: homeNo,
                 password: hashedPass,
+                token: 'token',
                 verified: verified,
             }
         })
+
+        // get the id
+        const user_id = await prisma.client.findUnique({
+            where: {
+                email: req.body.email
+            },
+            select: {
+                id: true
+            }
+        })
+
+        console.log(user_id)
+
         // Create token
         const token = jwt.sign(
-            { user_id: user.id, email },
+            { user_id: user_id, email: req.body.email },
             process.env.TOKEN_KEY,
             {
                 expiresIn: "2h",
             }
         );
-        user.token = token;
+        console.log(token)
+        const updateToken = await prisma.client.update({
+            where: {
+                email: req.body.email
+            },
+            data: {
+                token: token
+            }
+        })
         return res.send({ status: 'success', data: "User successfully registered!"})
     }
     main()
