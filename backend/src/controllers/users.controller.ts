@@ -105,4 +105,8 @@ const getClientData = async (req: Request, res: Response) => {
     })
 }
 
-export { createUser, logIn, getClientData }
+const welcome = (req: Request, res: Response) => {
+  res.status(200).send("Welcome 🙌 ");
+};
+
+export { createUser, welcome, logIn, getClientData }
