@@ -29,9 +29,10 @@ const createUser = async (req: Request, res: Response) => {
             res.send({ status: 'error', message: "User already exists. Please login."})
         }
 
-        // hasing the password
+        // hash the password
         const hashedPass = await bcrypt.hash(password, 10)
 
+        // create data
         const user = await prisma.client.create({
             data: {
                 firstName: firstName,
@@ -57,6 +58,7 @@ const createUser = async (req: Request, res: Response) => {
             }
         })
 
+        // logging to id to console
         console.log(user_id)
 
         // Create token
@@ -65,6 +67,8 @@ const createUser = async (req: Request, res: Response) => {
             process.env.TOKEN_KEY,
         );
         console.log(token)
+
+        // update token
         const updateToken = await prisma.client.update({
             where: {
                 email: req.body.email
@@ -73,8 +77,10 @@ const createUser = async (req: Request, res: Response) => {
                 token: token
             }
         })
-        return res.send({ status: 'success', data: "User successfully registered!"})
+        // send request to client
+        return res.send({ status: 'success', data: "User successfully registered!", token: token})
     }
+    // check errors
     main()
     .catch((e) => {
         res.send({ status: 'error', error: e.message})
@@ -85,7 +91,44 @@ const createUser = async (req: Request, res: Response) => {
 }
 
 const logIn = async (req: Request, res: Response) => {
-    return res.send({ status: 'success', message: 'User successfuly validated'})
+    // get email and password
+    const { email, password } = req.body
+    console.log(`${email} is trying to login ..`);
+
+    // helper variable
+    let isValidated: boolean = false
+
+    // check if that user actually exists
+    async function main() {
+        // find user with that email
+        const user = await prisma.client.findFirst({
+            where: {
+                email,
+            },
+            select: {
+                email: true,
+                password: true
+            }
+        })
+        if (!user.email) {
+            return res.send({ status: 'error', message: "User don't exist. Go to registration"})
+        }
+        if (await bcrypt.compare(password, user.password)) {
+		// the username, password combination is successful
+
+		return res.send({ status: 'ok'})
+	}
+
+	res.send({ status: 'error', error: 'Invalid username/password' })
+    }
+    // check errors
+    main()
+    .catch((e) => {
+        res.send({ status: 'error', error: e.message})
+    })
+    .finally(async () => {
+        await prisma.$disconnect()
+    })
 }
 
 const getClientData = async (req: Request, res: Response) => {

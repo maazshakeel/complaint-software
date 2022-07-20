@@ -12,7 +12,8 @@ router.post(
 )
 
 router.post(
-    'api/login',
+    '/api/login',
+    verifyToken,
     logIn
 )
 
