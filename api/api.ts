@@ -1,6 +1,18 @@
 // create client
-const createClient = ({ firstName, lastName, cnic, email, block, homeNo, verfied, password }) => {
-  const result = fetch('http://localhost:3000', {
+interface IRegisterClient {
+  firstName: string
+  lastName: string
+  cnic: string
+  block: string
+  homeNo: string
+  verified: boolean
+  email: string
+  phoneNo: string
+  password: string
+}
+
+const RegisterClient = ({ firstName, lastName, cnic, email, block, homeNo, verified, password }: IRegisterClient) => {
+  const result = fetch('http://localhost:3000/api/register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -12,14 +24,17 @@ const createClient = ({ firstName, lastName, cnic, email, block, homeNo, verfied
       email,
       block,
       homeNo,
-      verfied,
+      verified,
       password
     })
   }).then((res) => res.json())
 
-  if (result.status === 'ok') {
-    return 'createdUser'
+  const result = null 
+  
+  if (result.status === 'success') {
+    return true
   }
+  return result
 }
 
 // validate user 

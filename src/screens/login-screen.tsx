@@ -13,6 +13,7 @@ import colors from '../assets/colors'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { useNavigation } from '@react-navigation/core'
+import ErrorMessage from '../components/errorMessage'
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('')
@@ -22,12 +23,10 @@ export default function LoginScreen() {
 
   const logIn = () => {
     if (!email || !password) {
-      Alert.alert(
-        "Field Missing"
-      ) 
-      return;
+      Alert.alert('Field Missing')
+      return
     }
-    navigation.navigate('Dashboard') 
+    navigation.navigate('Dashboard')
   }
 
   return (
@@ -35,6 +34,7 @@ export default function LoginScreen() {
       <Image style={styles.image} source={require('../assets/logo.png')} />
 
       <StatusBar style="auto" />
+      <ErrorMessage message="Invalid Password/Username" />
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
@@ -62,10 +62,10 @@ export default function LoginScreen() {
         <View
           style={{ display: 'flex', flexDirection: 'row', marginLeft: wp(3) }}
         >
-          <TouchableOpacity 
+          <TouchableOpacity
             style={[styles.loginBtn, styles.rigt]}
             onPress={logIn}
-            >
+          >
             {/* @ts-ignore */}
             <Text style={styles.loginText}>Login</Text>
           </TouchableOpacity>

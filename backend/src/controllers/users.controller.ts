@@ -1,7 +1,11 @@
 import { Request, Response } from "express"
 import { PrismaClient } from "@prisma/client"
 import jwt from 'jsonwebtoken'
+import env from 'dotenv'
+env.config()
 import bcrypt from 'bcryptjs'
+
+const TOKEN_KEY: string ="^)<FT#ZwJ4?Xl'<<<<>>>>>>>bCpmp+<<<<>>>}ApotSTO"
 
 // prisma client
 const prisma = new PrismaClient()
@@ -64,9 +68,8 @@ const createUser = async (req: Request, res: Response) => {
         // Create token
         const token = jwt.sign(
             { user_id: user_id, email: req.body.email },
-            process.env.TOKEN_KEY,
+            TOKEN_KEY,
         );
-        console.log(token)
 
         // update token
         const updateToken = await prisma.client.update({
@@ -119,7 +122,7 @@ const logIn = async (req: Request, res: Response) => {
 		return res.send({ status: 'ok'})
 	}
 
-	res.send({ status: 'error', error: 'Invalid username/password' })
+	res.send({ status: 'error', message: 'Invalid username/password' })
     }
     // check errors
     main()
