@@ -63,9 +63,6 @@ const createUser = async (req: Request, res: Response) => {
         const token = jwt.sign(
             { user_id: user_id, email: req.body.email },
             process.env.TOKEN_KEY,
-            {
-                expiresIn: "2h",
-            }
         );
         console.log(token)
         const updateToken = await prisma.client.update({
