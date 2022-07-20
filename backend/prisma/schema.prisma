@@ -23,7 +23,7 @@ model Client {
   block     String // @db.Char(1)
   homeNo    String
   password  String
-  token     String?
+  token     String
 }
 
 // model Complaints {
