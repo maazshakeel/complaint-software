@@ -12,37 +12,34 @@ datasource db {
 
 // client database
 model Client {
-  id         String       @id @default(uuid())
-  createdAt  DateTime     @default(now())
-  firstName  String
-  lastName   String
-  cnic       String       @unique
-  email      String       @unique
-  phoneNo    String       @unique
-  verified   Boolean      @default(false)
-  block      String
-  homeNo     Int
-  password   String
-  token      String
-  Complaints Complaints[]
+  id           String     @id @default(uuid())
+  createdAt    DateTime   @default(now())
+  firstName    String
+  lastName     String
+  cnic         String     @unique
+  email        String     @unique
+  phoneNo      String     @unique
+  verified     Boolean    @default(false)
+  block        String
+  homeNo       Int
+  password     String
+  token        String
+  complaints   Complaints? @relation(fields: [complaintsId], references: [id])
+  complaintsId String? @unique
 }
 
 // Complaints 
 model Complaints {
-  id     String @id @default(uuid())
-  client Client @relation(fields: [clientId], references: [id])
+  id String @id @default(uuid())
 
   ticketNo Int @unique
 
-  assignedPerson Worker @relation(fields: [workerId], references: [id])
-
-  clientId         String
-  ComplaintStatus  ComplaintStatus[]
-  category         ComplaintCategory  @relation(fields: [categoryId], references: [id])
-  categoryId       String
-  workerId         String
-  complaintType    ComplaintType[]
-  ComplaintDetails ComplaintDetails[]
+  complaintStatus   ComplaintStatus[]
+  complaintType     ComplaintType[]
+  complaintDetails  ComplaintDetails[]
+  complaintCategory ComplaintCategory[]
+  Client            Client?
+  Worker            Worker?
 }
 
 model ComplaintDetails {
@@ -58,7 +55,7 @@ model ComplaintDetails {
 model ComplaintCategory {
   id         String       @id @default(uuid())
   name       String
-  Complaints Complaints[]
+  complaints Complaints[]
 }
 
 model ComplaintType {
@@ -89,8 +86,9 @@ model Worker {
   password         String
   department       String
   token            String
-  Complaints       Complaints[]
+  complaints       Complaints?        @relation(fields: [complaintsId], references: [id])
   WorkerDepartment WorkerDepartment[]
+  complaintsId     String?            @unique
 }
 
 model WorkerDepartment {
