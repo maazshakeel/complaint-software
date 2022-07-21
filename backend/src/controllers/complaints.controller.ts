@@ -1,0 +1,29 @@
+import { Request, Response } from "express"
+import { PrismaClient } from "@prisma/client"
+import jwt from 'jsonwebtoken'
+import env from 'dotenv'
+env.config()
+import bcrypt from 'bcryptjs'
+
+const TOKEN_KEY: string ="^)<FT#ZwJ4?Xl'<<<<>>>>>>>bCpmp+<<<<>>>}ApotSTO"
+
+// prisma client
+const prisma = new PrismaClient()
+
+// create complaint
+const createComplaint = (req: Request, res: Response) => {
+    return res.send("Created complaint!")
+}
+// finish complaint
+const finishComplaint = (req: Request, res: Response) => {
+    return res.send("Finished complaint!")
+}
+// get complaints
+const getComplaints = (req: Request, res: Response) => {
+    return res.send("Returned all complaint!")
+}
+const welcome = (req: Request, res: Response) => {
+  return res.json({ok: "Welcome 🙌"});
+};
+
+export { welcome, createComplaint, finishComplaint, getComplaints }
