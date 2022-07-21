@@ -47,17 +47,23 @@ const finishComplaint = (req: Request, res: Response) => {
   if (!ticketNo) {
     return res.send({ status: 'error', message: 'Please provide ticket number!' })
   }
-  if (ticketNo > 6) {
+  if (ticketNo < 6) {
     return res.send({ status: 'error', message: 'Please provide valid ticket number!' })
   }
 
   async function main() {
 
     // deleting complaint
-    const complaint = await prisma.complaints.delete({
+    await prisma.complaints.delete({
       where: {
         ticketNo,
       },
+      include: {
+        complaintStatus: true,
+        complaintType: true,
+        complaintCategory: true,
+        complaintDetails: true
+      }
     })
     return res.send({ status: 'success', message: 'complaint deleted succesfuly' })
   }

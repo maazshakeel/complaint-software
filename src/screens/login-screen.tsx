@@ -10,15 +10,13 @@ import {
   Alert
 } from 'react-native'
 import colors from '../assets/colors'
-import Icon from 'react-native-vector-icons/FontAwesome5'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { useNavigation } from '@react-navigation/core'
 import ErrorMessage from '../components/errorMessage'
 
-export default function LoginScreen() {
+export default function LoginScreen(): JSX.Element {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [buttonDisabled, setButtonDisabled] = useState(true)
   const navigation = useNavigation()
 
   const logIn = () => {
