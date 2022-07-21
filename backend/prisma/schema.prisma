@@ -79,18 +79,18 @@ model ComplaintStatus {
 
 // Worker - Staff
 model Worker {
-  id         String             @id @default(uuid())
-  createdAt  DateTime           @default(now())
-  firstName  String
-  lastName   String
-  cnic       String             @unique
-  email      String             @unique
-  phoneNo    String             @unique
-  password   String
-  department String
-  token      String
-  Complaints Complaints[]
-  WorkerType WorkerDepartment[]
+  id               String             @id @default(uuid())
+  createdAt        DateTime           @default(now())
+  firstName        String
+  lastName         String
+  cnic             String             @unique
+  email            String             @unique
+  phoneNo          String             @unique
+  password         String
+  department       String
+  token            String
+  Complaints       Complaints[]
+  WorkerDepartment WorkerDepartment[]
 }
 
 model WorkerDepartment {
