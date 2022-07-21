@@ -1,9 +1,19 @@
 export type TCreateComplaint = {
     ticketNo: number;
-    complaintStatus: object;
-    complaintCategory: object;
-    complaintType: object;
-    complaintDetails: object;
-    photoUri: string;
-    isUrgent: boolean;
+    complaintStatus: {
+        whenRaised: string;
+        isResolved: boolean;
+        isClosed: boolean;
+    };
+    complaintCategory: {
+        name: string;
+    };
+    complaintType: {
+        type: string;
+    };
+    complaintDetails: {
+        complaintDetail: string;
+        complaintSelectedOptions;
+        isUrgent: boolean;
+    };
 };
