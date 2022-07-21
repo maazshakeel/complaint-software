@@ -5,6 +5,9 @@ import env from 'dotenv'
 env.config()
 import bcrypt from 'bcryptjs'
 
+// import types
+import { TCreateClient } from "../types/user.type"
+
 const TOKEN_KEY: string ="^)<FT#ZwJ4?Xl'<<<<>>>>>>>bCpmp+<<<<>>>}ApotSTO"
 
 // prisma client
@@ -12,7 +15,7 @@ const prisma = new PrismaClient()
 
 const createUser = async (req: Request, res: Response) => {
 
-    const { firstName, lastName, cnic, block, homeNo, email, phoneNo, password, verified } = req.body
+    const { firstName, lastName, cnic, block, homeNo, email, phoneNo, password, verified }: TCreateClient = req.body
 
     // validation
     if (password.length < 5) {
