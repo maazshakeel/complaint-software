@@ -36,12 +36,23 @@ model Complaints {
 
   assignedPerson Worker @relation(fields: [workerId], references: [id])
 
-  clientId        String
-  ComplaintStatus ComplaintStatus[]
-  category        ComplaintCategory @relation(fields: [categoryId], references: [id])
-  categoryId      String
-  workerId        String
-  complaintType   ComplaintType[]
+  clientId         String
+  ComplaintStatus  ComplaintStatus[]
+  category         ComplaintCategory  @relation(fields: [categoryId], references: [id])
+  categoryId       String
+  workerId         String
+  complaintType    ComplaintType[]
+  ComplaintDetails ComplaintDetails[]
+}
+
+model ComplaintDetails {
+  id                       String     @id @default(uuid())
+  complaintDetail          String
+  complaintSelectedOptions String?
+  isUrgent                 Boolean
+  complaint                Complaints @relation(fields: [complaintsId], references: [id])
+
+  complaintsId String
 }
 
 model ComplaintCategory {

@@ -12,6 +12,7 @@ const prisma = new PrismaClient()
 
 // create complaint
 const createComplaint = (req: Request, res: Response) => {
+    const { ticketNo, complaintStatus, complaintCategory, complaintType, complaintDetails, photoUri, isUrgent} = req.body
     return res.send("Created complaint!")
 }
 // finish complaint
