@@ -17,10 +17,14 @@ const createComplaint = (req: Request, res: Response) => {
 }
 // finish complaint
 const finishComplaint = (req: Request, res: Response) => {
+    const { ticketNo } = req.body
+    // select complaint with that ticket no
+    // delete it
     return res.send("Finished complaint!")
 }
 // get complaints
 const getComplaints = (req: Request, res: Response) => {
+    // get all complaints
     return res.send("Returned all complaint!")
 }
 const welcome = (req: Request, res: Response) => {
