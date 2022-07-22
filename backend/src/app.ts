@@ -2,6 +2,7 @@
 import express from 'express'
 import router from "./routes"
 import bodyParser from 'body-parser'
+import cors from 'cors'
 
 // app
 const app = express()
@@ -13,4 +14,4 @@ app.use(express.json());
 app.use(router)
 
 // running server
-app.listen(3000, () => console.log("Server is running!"))
+app.listen(8000, '192.168.1.144', () => console.log("Server is running!"))

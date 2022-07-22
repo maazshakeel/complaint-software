@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StatusBar,
   View,
+  Alert,
   StyleSheet,
   TextInput,
   KeyboardAvoidingView
@@ -13,6 +14,7 @@ import {
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { useNavigation } from '@react-navigation/core'
 import colors from '../assets/colors'
+import client from '../../api/api'
 
 export default function RegisterScreen() {
   const [firstName, setFirstName] = useState('')
@@ -25,6 +27,38 @@ export default function RegisterScreen() {
 
   const navigation = useNavigation()
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : 0
+
+  const registerUser = async () => {
+    if (!firstName || !lastName || !cnic || !block || !houseNo || !email || !password) {
+      Alert.alert('Field Missing')
+      return
+    }
+    const signUp = await client.post('/api/register', {
+      firstName: firstName,
+      lastName: lastName,
+      cnic: cnic,
+      block: block,
+      homeNo: houseNo,
+      phoneNo: "0304639994",
+      email: email,
+      password: password
+    });
+    if (signUp.data.status === 'success') {
+      Alert.alert(signUp.data.data)
+      return
+    } else {
+      Alert.alert("Hmm, Something is wrong...")
+    }
+
+    /* if (result) {
+      Alert.alert("You've successfuly registered. Please log in.")
+      return
+    }
+    else {
+      Alert.alert(result.message)
+      return
+    } */
+  }
 
   return (
     <View style={styles.container}>
@@ -105,7 +139,7 @@ export default function RegisterScreen() {
             style={{ display: 'flex', flexDirection: 'row', marginLeft: wp(0) }}
           >
             {/* @ts-ignore */}
-            <TouchableOpacity style={styles.loginBtn}>
+            <TouchableOpacity style={styles.loginBtn} onPress={registerUser}>
               {/* @ts-ignore */}
               <Text style={styles.loginText}>Register</Text>
             </TouchableOpacity>

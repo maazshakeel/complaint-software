@@ -15,7 +15,7 @@ const prisma = new PrismaClient()
 
 const createUser = async (req: Request, res: Response) => {
 
-  const { firstName, lastName, cnic, block, homeNo, email, phoneNo, password, verified }: TCreateClient = req.body
+  let { firstName, lastName, cnic, block, homeNo, email, phoneNo, password, verified }: TCreateClient = req.body
 
   // validation
   if (password.length < 5) {
@@ -48,7 +48,7 @@ const createUser = async (req: Request, res: Response) => {
         email,
         phoneNo,
         block,
-        homeNo,
+        homeNo: parseInt(homeNo),
         password: hashedPass,
         verified,
       }

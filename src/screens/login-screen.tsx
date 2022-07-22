@@ -14,6 +14,7 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { useNavigation } from '@react-navigation/core'
 import ErrorMessage from '../components/errorMessage'
 import { getLogIn } from '../../api/api'
+import axios from 'axios'
 
 export default function LoginScreen(): JSX.Element {
   const [email, setEmail] = useState('')
@@ -22,17 +23,11 @@ export default function LoginScreen(): JSX.Element {
   const navigation = useNavigation()
 
   const logIn = async () => {
-    if (!email || !password) {
-      Alert.alert('Field Missing')
-      return
-    }
-    const status = await getLogIn(email, password)
-    if (status === 'ok') {
-      // @ts-ignore
-      navigation.navigate('Dashboard')
-    }
-    else {
-      setErrorMessage('Invalid username / password.')
+    try {
+      const res = await axios.get('http://10.90.80.2:8000/healthcheck')
+      console.log(res.data)
+    } catch (error) {
+      console.log(error.message)
     }
   }
 

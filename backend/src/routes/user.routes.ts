@@ -4,8 +4,6 @@ import { verifyToken } from '../middlewares/auth.middleware'
 
 const router = express.Router()
 
-const app = express()
-
 router.post(
   '/api/register',
   createUser,
