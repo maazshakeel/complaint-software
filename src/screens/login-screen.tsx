@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   StyleSheet,
   Text,
@@ -13,26 +13,34 @@ import colors from '../assets/colors'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { useNavigation } from '@react-navigation/core'
 import ErrorMessage from '../components/errorMessage'
+import { getLogIn } from '../../api/api'
 
 export default function LoginScreen(): JSX.Element {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
   const navigation = useNavigation()
 
-  const logIn = () => {
+  const logIn = async () => {
     if (!email || !password) {
       Alert.alert('Field Missing')
       return
     }
-    navigation.navigate('Dashboard')
+    const status = await getLogIn(email, password)
+    if (status === 'ok') {
+      // @ts-ignore
+      navigation.navigate('Dashboard')
+    }
+    else {
+      setErrorMessage('Invalid username / password.')
+    }
   }
 
   return (
     <View style={styles.container}>
       <Image style={styles.image} source={require('../assets/logo.png')} />
-
       <StatusBar style="auto" />
-      <ErrorMessage message="Invalid Password/Username" />
+      <ErrorMessage message={errorMessage} />
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}

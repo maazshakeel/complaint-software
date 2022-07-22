@@ -23,7 +23,7 @@ model Client {
   block        String
   homeNo       Int
   password     String
-  token        String
+  token        String?
   complaints   Complaints? @relation(fields: [complaintsId], references: [id])
   complaintsId String? @unique
 }

@@ -11,8 +11,8 @@ interface IRegisterClient {
   password: string
 }
 
-const RegisterClient = ({ firstName, lastName, cnic, email, block, homeNo, verified, password }: IRegisterClient) => {
-  const result = fetch('http://localhost:3000/api/register', {
+const RegisterClient = async ({ firstName, lastName, cnic, email, block, homeNo, verified, password }: IRegisterClient) => {
+  const result = await fetch('http://localhost:3000/api/register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -29,16 +29,32 @@ const RegisterClient = ({ firstName, lastName, cnic, email, block, homeNo, verif
     })
   }).then((res) => res.json())
 
-  const result = null 
-  
+
   if (result.status === 'success') {
     return true
   }
   return result
 }
 
-// validate user 
 // login
+export const getLogIn = async (email: string, password: string) => {
+  const result = await fetch('http://localhost:3000/api/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      email,
+      password
+    })
+  })
+  const response = await result.json()
+  if (response.status === 'ok') {
+    return 'ok'
+  }
+  return false
+
+}
 // create complaints
 // find complaints
 // update complaints
