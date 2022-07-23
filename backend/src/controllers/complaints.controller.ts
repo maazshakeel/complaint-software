@@ -62,7 +62,8 @@ const finishComplaint = (req: Request, res: Response) => {
         complaintStatus: true,
         complaintType: true,
         complaintCategory: true,
-        complaintDetails: true
+        complaintDetails: true,
+        Client: true
       }
     })
     return res.send({ status: 'success', message: 'complaint deleted succesfuly' })
@@ -81,6 +82,11 @@ const getComplaints = (req: Request, res: Response) => {
   // get all complaints
   async function main() {
     const complaints = await prisma.complaints.findMany({
+      where: {
+        Client: {
+          email: req.body.email
+        }
+      },
       include: {
         complaintType: true,
         complaintStatus: true,
@@ -89,7 +95,7 @@ const getComplaints = (req: Request, res: Response) => {
       }
     })
     console.log(complaints)
-    return res.send({ complaints })
+    return res.send(complaints)
   }
   // check errors
   main()

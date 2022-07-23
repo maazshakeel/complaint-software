@@ -14,12 +14,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 export default function Dashbaord(): JSX.Element {
 
   const [fullName, setFullName] = useState('')
+  const [email, setEmail] = useState('')
 
   // navigation
   const navigation = useNavigation()
 
   const getClientData = async () => {
     const response = await client.get('/api/client_data', { token: await AsyncStorage.getItem('user_token') })
+    setEmail(`${response.data.email}`)
     setFullName(`${response.data.firstName} ${response.data.lastName}`)
     return
   }
@@ -69,7 +71,7 @@ export default function Dashbaord(): JSX.Element {
           <Text style={{ paddingRight: 10 }}>Filters</Text>
         </TouchableOpacity>
       </View>
-      <ComplaintList />
+      <ComplaintList email={email} />
       {/* Whenever user will try to create a new complaint we'll navigate to another screen */}
       <TouchableOpacity
         onPress={() => navigation.navigate('New Complaint')}

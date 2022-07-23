@@ -38,7 +38,7 @@ model Complaints {
   complaintType     ComplaintType[]
   complaintDetails  ComplaintDetails[]
   complaintCategory ComplaintCategory[]
-  Client            Client?
+  Client            Client[]
   Worker            Worker?
 }
 
