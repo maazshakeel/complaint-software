@@ -13,8 +13,8 @@ import colors from '../assets/colors'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { useNavigation } from '@react-navigation/core'
 import ErrorMessage from '../components/errorMessage'
-import { getLogIn } from '../../api/api'
-import axios from 'axios'
+import client from '../../api/api'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export default function LoginScreen(): JSX.Element {
   const [email, setEmail] = useState('')
@@ -22,12 +22,52 @@ export default function LoginScreen(): JSX.Element {
   const [errorMessage, setErrorMessage] = useState('')
   const navigation = useNavigation()
 
-  const logIn = async () => {
+  const checkUserId = async () => {
     try {
-      const res = await axios.get('http://10.90.80.2:8000/healthcheck')
-      console.log(res.data)
+      const user_id = await AsyncStorage.getItem('user_token')
+      if (user_id) {
+        return true
+        console.log(await AsyncStorage.getItem('user_token'))
+      }
+      return false
+
     } catch (error) {
-      console.log(error.message)
+      return false
+    }
+  }
+
+  // checking user_id
+  useEffect(() => {
+
+    const isUserId = checkUserId()
+    if (!isUserId) {
+      navigation.navigate('Dashboard')
+    }
+    return
+  }, [])
+
+  const logIn = async () => {
+
+    // Forget any user id 
+    await AsyncStorage.clear()
+
+    if (!email || !password) {
+      Alert.alert('Field Missing')
+      return
+    }
+    const logIn = await client.post('/api/login', {
+      email: email,
+      password: password
+    });
+    if (logIn.data.status === 'ok') {
+      await AsyncStorage.setItem('user_token', logIn.data.token)
+      const get_token = await AsyncStorage.getItem('user_token')
+      console.log(get_token)
+      Alert.alert(`${logIn.data.message}.`)
+      navigation.navigate('Dashboard')
+      return
+    } else {
+      Alert.alert("Hmm, Something is wrong...")
     }
   }
 

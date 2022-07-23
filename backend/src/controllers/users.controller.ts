@@ -55,12 +55,12 @@ const createUser = async (req: Request, res: Response) => {
     })
 
     // send request to client
-    return res.send({ status: 'success', data: "User successfully registered!" })
+    return res.send({ status: 'success', message: "User successfully registered!" })
   }
   // check errors
   main()
     .catch((e) => {
-      res.send({ status: 'error', error: e.message })
+      res.send({ status: 'error', message: e.message })
     })
     .finally(async () => {
       await prisma.$disconnect()
@@ -120,7 +120,7 @@ const logIn = async (req: Request, res: Response) => {
           token: token
         }
       })
-      return res.send({ status: 'ok', token: token })
+      return res.send({ status: 'ok', message: "Login Successful", token: token, user_id: user_id })
     }
     res.send({ status: 'error', message: 'Invalid username/password' })
   }

@@ -39,12 +39,13 @@ export default function RegisterScreen() {
       cnic: cnic,
       block: block,
       homeNo: houseNo,
-      phoneNo: "0304639994",
+      phoneNo: "0384639994",
       email: email,
       password: password
     });
     if (signUp.data.status === 'success') {
-      Alert.alert(signUp.data.data)
+      Alert.alert(`${signUp.data.message}. Please Log in.`)
+      navigation.navigate('Login')
       return
     } else {
       Alert.alert("Hmm, Something is wrong...")
