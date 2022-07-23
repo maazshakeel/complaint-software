@@ -1,6 +1,6 @@
 // imports
 import { ScrollView, StatusBar } from 'native-base'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { Header, Text } from 'react-native-elements'
 import HL from '../components/hr'
@@ -8,10 +8,25 @@ import Icon from 'react-native-vector-icons/FontAwesome5'
 import ComplaintList from '../components/ComplaintLists'
 import Circle from '../components/Circle'
 import { useNavigation } from '@react-navigation/native'
+import client from '../../api/api'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
-export default function Dashbaord() {
+export default function Dashbaord(): JSX.Element {
+
+  const [fullName, setFullName] = useState('')
+
   // navigation
   const navigation = useNavigation()
+
+  const getClientData = async () => {
+    const response = await client.get('/api/client_data', { token: await AsyncStorage.getItem('user_token') })
+    setFullName(`${response.data.firstName} ${response.data.lastName}`)
+    return
+  }
+
+  useEffect(() => {
+    getClientData()
+  }, [])
 
   return (
     <View style={{ flex: 1 }}>
@@ -19,7 +34,7 @@ export default function Dashbaord() {
       {/* Profile - Pending */}
       <View style={styles.profileContainer}>
         <Image source={require('../assets/static-profile.png')} />
-        <Text style={{ fontSize: 27, marginRight: 21 }}>Muhammad Irfan</Text>
+        <Text style={{ fontSize: 27, marginRight: 21 }}>{fullName}</Text>
       </View>
       {/* Hover line */}
       <HL width={1} />

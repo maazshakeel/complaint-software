@@ -134,9 +134,24 @@ const logIn = async (req: Request, res: Response) => {
     })
 }
 
-const getClientData = async (_: any, res: Response) => {
+const getClientData = async (req: Request, res: Response) => {
   async function main() {
-    const response = await prisma.client.findMany()
+    const response = await prisma.client.findFirst({
+      where: {
+        token: req.body.token
+      },
+      select: {
+        createdAt: true,
+        firstName: true,
+        lastName: true,
+        cnic: true,
+        email: true,
+        phoneNo: true,
+        verified: true,
+        block: true,
+        homeNo: true,
+      }
+    })
     return res.send(response)
   }
   main()
