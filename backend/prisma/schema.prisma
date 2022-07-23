@@ -12,20 +12,20 @@ datasource db {
 
 // client database
 model Client {
-  id           String     @id @default(uuid())
-  createdAt    DateTime   @default(now())
-  firstName    String
-  lastName     String
-  cnic         String     @unique
-  email        String     @unique
-  phoneNo      String     @unique
-  verified     Boolean    @default(false)
-  block        String
-  homeNo       Int
-  password     String
-  token        String?
+  id          String      @id @default(uuid())
+  createdAt   DateTime    @default(now())
+  firstName   String
+  lastName    String
+  cnic        String      @unique
+  email       String      @unique
+  phoneNo     String      @unique
+  verified    Boolean     @default(false)
+  block       String
+  homeNo      Int
+  password    String
+  token       String?
   complaint   Complaints? @relation(fields: [complaintId], references: [id])
-  complaintId String? @unique
+  complaintId String?     @unique
 }
 
 // Complaints 
@@ -34,44 +34,46 @@ model Complaints {
 
   ticketNo Int @unique
 
-  complaintStatus   ComplaintStatus[]
-  complaintType     ComplaintType[]
-  complaintDetails  ComplaintDetails[]
-  complaintCategory ComplaintCategory[]
-  Client            Client[]
-  Worker            Worker?
+  complaintType       ComplaintType     @relation(fields: [complaintTypeId], references: [id])
+  complaintDetails    ComplaintDetails  @relation(fields: [complaintDetailsId], references: [id])
+  complaintCategory   ComplaintCategory @relation(fields: [complaintCategoryId], references: [id])
+  Client              Client[]
+  Worker              Worker[]
+  complaintStatus     ComplaintStatus   @relation(fields: [complaintStatusId], references: [id])
+  complaintStatusId   String            @unique
+  complaintTypeId     String            @unique
+  complaintDetailsId  String            @unique
+  complaintCategoryId String            @unique
 }
 
 model ComplaintDetails {
-  id                       String     @id @default(uuid())
+  id                       String  @id @default(uuid())
   complaintDetail          String
   complaintSelectedOptions String?
   isUrgent                 Boolean
-  complaint                Complaints @relation(fields: [complaintsId], references: [id])
 
   complaintsId String
+  Complaints   Complaints[]
 }
 
 model ComplaintCategory {
   id         String       @id @default(uuid())
   name       String
-  complaints Complaints[]
+  Complaints Complaints[]
 }
 
 model ComplaintType {
-  id          String     @id @default(uuid())
-  type        String
-  complaint   Complaints @relation(fields: [complaintId], references: [id])
-  complaintId String
+  id         String       @id @default(uuid())
+  type       String
+  Complaints Complaints[]
 }
 
 model ComplaintStatus {
-  id           String     @id @default(uuid())
-  whenRaised   DateTime   @default(now())
-  isResolved   Boolean
-  isClosed     Boolean
-  complaint    Complaints @relation(fields: [complaintsId], references: [id])
-  complaintsId String
+  id         String       @id @default(uuid())
+  whenRaised DateTime     @default(now())
+  isResolved Boolean
+  isClosed   Boolean
+  Complaints Complaints[]
 }
 
 // Worker - Staff
