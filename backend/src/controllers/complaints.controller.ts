@@ -9,24 +9,25 @@ const prisma = new PrismaClient()
 
 // create complaint
 const createComplaint = (req: Request, res: Response) => {
-  const { ticketNo, complaintStatus, complaintCategory, complaintType, complaintDetails }: TCreateComplaint = req.body
+  const { ticketNo, complaintStatus, complaintCategory, complaintType, complaintDetails, clientId }: TCreateComplaint = req.body
 
   async function main() {
     await prisma.complaints.create({
       data: {
         ticketNo,
-        complaintStatus: {
+        ComplaintStatus: {
           create: complaintStatus
         },
-        complaintCategory: {
+        ComplaintCategory: {
           create: complaintCategory
         },
-        complaintDetails: {
+        ComplaintDetails: {
           create: complaintDetails
         },
-        complaintType: {
+        ComplaintType: {
           create: complaintType
         },
+        clientId,
       }
     })
     return res.send("Created complaint!")
@@ -59,11 +60,10 @@ const finishComplaint = (req: Request, res: Response) => {
         ticketNo,
       },
       include: {
-        complaintStatus: true,
-        complaintType: true,
-        complaintCategory: true,
-        complaintDetails: true,
-        Client: true
+        ComplaintCategory: true,
+        ComplaintDetails: true,
+        ComplaintStatus: true,
+        ComplaintType: true
       }
     })
     return res.send({ status: 'success', message: 'complaint deleted succesfuly' })
@@ -83,19 +83,18 @@ const getComplaints = (req: Request, res: Response) => {
   async function main() {
     const complaints = await prisma.complaints.findMany({
       where: {
-        Client: {
-          email: req.body.email
-        }
+        clientId: req.body.clientId,
       },
-      include: {
-        complaintType: true,
-        complaintStatus: true,
-        complaintDetails: true,
-        complaintCategory: true
+      select: {
+        ticketNo: true,
+        ComplaintCategory: true,
+        ComplaintStatus: true,
+        ComplaintDetails: true,
+        ComplaintType: true
       }
     })
     console.log(complaints)
-    return res.send(complaints)
+    return res.send({ complaints })
   }
   // check errors
   main()

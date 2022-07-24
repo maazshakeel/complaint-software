@@ -15,4 +15,5 @@ export type TCreateComplaint = {
     complaintSelectedOptions: string;
     isUrgent: boolean;
   };
+  clientId: string
 };

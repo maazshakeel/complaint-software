@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
-import { NativeBaseProvider } from 'native-base'
 
 type Props = {
   children: React.ReactNode
@@ -9,7 +8,7 @@ type Props = {
 export default function AppContainer(props: Props) {
   return (
     <NavigationContainer>
-      <NativeBaseProvider>{props.children}</NativeBaseProvider>
+      {props.children}
     </NavigationContainer>
   )
 }

@@ -20,6 +20,10 @@ interface IRowProps {
   ticketNumber: string
   // that individual complaint is resloved or not
   resolved: boolean
+  // complaint detail
+  complaintDetail: string
+  // complaint type
+  complaintCategory: string
 }
 
 // const resolved = false
@@ -50,12 +54,8 @@ const Row: FC<IRowProps> = props => {
                 style={{ marginLeft: 20, marginTop: 20 }}
               />
               <View>
-                <Text h4 style={{ marginTop: 13, marginLeft: 3 }}>
-                  Plumbing
-                </Text>
-                <Text style={{ width: 200, marginLeft: 3, fontSize: 17 }} h5>
-                  My null is leaking. I dont know the reason, please fix it.
-                </Text>
+                <Text h4 style={{ marginTop: 13, marginLeft: 3 }}>{props.complaintCategory}</Text>
+                <Text style={{ width: 200, marginLeft: 3, fontSize: 17 }} h5>{props.complaintDetail}</Text>
               </View>
             </View>
             <View

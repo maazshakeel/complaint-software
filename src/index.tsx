@@ -1,9 +1,7 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 // screens
-import LoginScreen from './screens/login-screen'
-import RegisterScreen from './screens/register-screen'
 import Dashbaord from './screens/dashboard-screen'
 import NewComplaint from './screens/newComplaint-screen'
 import ComplaintDetails from './screens/complaintDetails-screen'
@@ -11,10 +9,12 @@ import ComplaintConfirmation from './screens/complaintConfirmation-screen'
 import WithdrawComplaint from './screens/withdrawComplaint-screen'
 import TrackComplaint from './screens/trackComplaint-screen'
 import ComplaintView from './screens/complaintView-screen'
+import LoginScreen from './screens/login-screen'
+import RegisterScreen from './screens/register-screen'
 
 const StackRoot = createNativeStackNavigator()
 
-const App = () => {
+const Root = () => {
   return (
     <StackRoot.Navigator initialRouteName="Login">
       <StackRoot.Screen
@@ -25,7 +25,7 @@ const App = () => {
       <StackRoot.Screen
         name="Register"
         component={RegisterScreen}
-        options={{ headerShown: true, headerTitle: 'User Registration' }}
+        options={{ headerShown: false }}
       />
       <StackRoot.Screen
         name="Dashboard"
@@ -96,4 +96,4 @@ const App = () => {
   )
 }
 
-export default App
+export default Root

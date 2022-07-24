@@ -26,8 +26,8 @@ export default function LoginScreen(): JSX.Element {
     try {
       const user_id = await AsyncStorage.getItem('user_token')
       if (user_id) {
-        return true
         console.log(await AsyncStorage.getItem('user_token'))
+        return user_id
       }
       return false
 
@@ -40,7 +40,8 @@ export default function LoginScreen(): JSX.Element {
   useEffect(() => {
 
     const isUserId = checkUserId()
-    if (!isUserId) {
+    console.log(isUserId)
+    if (isUserId) {
       navigation.navigate('Dashboard')
     }
     return
