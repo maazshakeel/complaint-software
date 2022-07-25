@@ -13,6 +13,30 @@ const TOKEN_KEY: string = "^)<FT#ZwJ4?Xl'<<<<>>>>>>>bCpmp+<<<<>>>}ApotSTO"
 // prisma client
 const prisma = new PrismaClient()
 
+const clientId = async (req: Request, res: Response) => {
+  const user_token = req.headers['x-access-token']
+  async function main() {
+    const clientId = await prisma.client.findUnique({
+      where: {
+        token: user_token
+      },
+      select: {
+        id: true
+      }
+    })
+    return res.send(clientId)
+  }
+  // check errors
+  main()
+    .catch((e) => {
+      res.send({ status: 'error', message: e.message })
+    })
+    .finally(async () => {
+      await prisma.$disconnect()
+    })
+  return res.send("")
+}
+
 const createUser = async (req: Request, res: Response) => {
 
   let { firstName, lastName, cnic, block, homeNo, email, phoneNo, password, verified }: TCreateClient = req.body
@@ -167,4 +191,4 @@ const welcome = (req: Request, res: Response) => {
   res.status(200).send("Welcome 🙌 ");
 };
 
-export { createUser, welcome, logIn, getClientData }
+export { createUser, welcome, clientId, logIn, getClientData }

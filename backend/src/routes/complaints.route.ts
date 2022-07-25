@@ -28,6 +28,7 @@ router.delete(
 
 router.get(
   "/api/complaints",
+  verifyToken,
   getComplaints
 )
 

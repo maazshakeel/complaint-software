@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react'
-import { ScrollView, View, Text } from 'react-native'
+import { ScrollView, View, Text, ActivityIndicator } from 'react-native'
 import Row from './Row'
 import client from '../../api/api'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -12,7 +12,8 @@ const ComplaintList: FC = ({ email }) => {
 
   const myComplaints = async () => {
     const complaints = await getComplaints()
-    setComplaints(complaints)
+    console.log([complaints])
+    setComplaints([complaints])
     return
   }
 
@@ -21,14 +22,21 @@ const ComplaintList: FC = ({ email }) => {
   }, [])
 
   if (!complaints) {
-    return <Text>Loading data from server.</Text>
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" />
+      </View>
+    )
   }
   if (complaints) {
     return (
       <ScrollView>
-        <Row resolved={complaints.ComplaintStatus[0].isResolved} complaintDetail={"Detail"} complaintCategory={"Cateogry"} ticketNumber={"32323"} />
-        <Row resolved={true} complaintDetail={"Detail"} complaintCategory={"Cateogry"} ticketNumber={"32323"} />
-        <Row resolved={false} complaintDetail={"Detail"} complaintCategory={"Cateogry"} ticketNumber={"32323"} />
+        {
+          complaints.map(complaint => {
+            return <Row key={complaint.ticketNo} resolved={complaint.ComplaintStatus[0].isResolved} complaintDetail={complaint.ComplaintDetails[0].complaintDetail} complaintCategory={complaint.ComplaintCategory[0].name} />
+          })
+        }
+        <Text>{complaints[0].ComplaintStatus[0].id}</Text>
       </ScrollView>
     )
   }

@@ -1,7 +1,26 @@
 import client from './api'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const getComplaints = async () => {
-  const getComplaint = await client.get('/api/complaints', { clientId: "5b5ea998-dc33-4571-8984-1b4215b9f79f" })
+
+  const clientId = await client.get('/api/clientId',
+    {
+      headers: {
+        'x-access-token': await AsyncStorage.getItem('user_token')
+      }
+    }
+  )
+
+  console.log(clientId.data)
+
+  const getComplaint = await client.get('/api/complaints',
+    {
+      headers: {
+        'x-access-token': await AsyncStorage.getItem('user_token')
+      },
+      clientId: clientId.data,
+    }
+  )
   return getComplaint.data.complaints[0]
 }
 

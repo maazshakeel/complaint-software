@@ -1,5 +1,5 @@
 import express, { application, Request, response, Response } from 'express'
-import { createUser, getClientData, welcome, logIn } from '../controllers/users.controller'
+import { createUser, getClientData, welcome, logIn, clientId } from '../controllers/users.controller'
 import { verifyToken } from '../middlewares/auth.middleware'
 
 const router = express.Router()
@@ -24,4 +24,11 @@ router.post(
   verifyToken,
   welcome
 )
+
+router.get(
+  "/api/clientId",
+  verifyToken,
+  clientId
+)
+
 export default router;
