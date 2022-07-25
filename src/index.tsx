@@ -1,4 +1,3 @@
-import React, { ReactElement } from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 // screens
@@ -16,7 +15,7 @@ const StackRoot = createNativeStackNavigator()
 
 const Root = () => {
   return (
-    <StackRoot.Navigator initialRouteName="Login">
+    <StackRoot.Navigator initialRouteName="Dashboard">
       <StackRoot.Screen
         name="Login"
         component={LoginScreen}
