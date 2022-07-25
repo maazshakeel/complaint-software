@@ -4,44 +4,34 @@ import Row from './Row'
 import client from '../../api/api'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from '@react-navigation/native'
+import { getComplaints } from '../../api/user.api'
 
 const ComplaintList: FC = ({ email }) => {
 
-  const [complaints, setComplaints] = useState({})
-  const [isLoading, setIsLoading] = useState(true)
+  const [complaints, setComplaints] = useState(null)
 
-  const navigation = useNavigation()
-
-  const getComplaints = async () => {
-    const getComplaint = await client.get('/api/complaints', { clientId: "5b5ea998-dc33-4571-8984-1b4215b9f79f" })
-    setComplaints(getComplaint.data.complaints[0])
-
-    console.log(getComplaint.data.complaints[0].ticketNo)
-    console.log(complaints.ComplaintDetails[0].complaintDetail)
-    setIsLoading(false)
+  const myComplaints = async () => {
+    const complaints = await getComplaints()
+    setComplaints(complaints)
     return
   }
 
   useEffect(() => {
-
-    setIsLoading(true)
-    getComplaints()
-
+    myComplaints()
   }, [])
 
-  if (isLoading) {
+  if (!complaints) {
+    return <Text>Loading data from server.</Text>
+  }
+  if (complaints) {
     return (
-      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Loading</Text>
-      </View>
+      <ScrollView>
+        <Row resolved={complaints.ComplaintStatus[0].isResolved} complaintDetail={"Detail"} complaintCategory={"Cateogry"} ticketNumber={"32323"} />
+        <Row resolved={true} complaintDetail={"Detail"} complaintCategory={"Cateogry"} ticketNumber={"32323"} />
+        <Row resolved={false} complaintDetail={"Detail"} complaintCategory={"Cateogry"} ticketNumber={"32323"} />
+      </ScrollView>
     )
   }
-
-  return (
-    <ScrollView>
-      <Row resolved={false} complaintDetail={"hell"} complaintCategory={"nohting"} ticketNumber={complaints.ticketNo} />
-    </ScrollView>
-  )
 }
 
 export default ComplaintList

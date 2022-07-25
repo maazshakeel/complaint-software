@@ -35,7 +35,7 @@ const Row: FC<IRowProps> = props => {
     <View style={styles.rowContainer}>
       <View style={styles.complaintHeading}>
         <View style={{ display: 'flex', flexDirection: 'row' }}>
-          <Circle resolved={props.resolved} />
+          <Circle isDone={props.resolved} />
           <Text style={{ paddingLeft: 10 }}>
             {props.resolved ? <Text>Resolved</Text> : <Text>In Progress</Text>}
           </Text>

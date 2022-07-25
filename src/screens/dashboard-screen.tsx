@@ -20,6 +20,11 @@ export default function Dashbaord(): JSX.Element {
   // navigation
   const navigation = useNavigation()
 
+  const logOut = async () => {
+    await AsyncStorage.clear()
+    navigation.navigate('Login')
+  }
+
   const getClientData = async () => {
     const response = await client.get('/api/client_data', { token: await AsyncStorage.getItem('user_token') })
     setEmail(`${response.data.email}`)
@@ -38,7 +43,7 @@ export default function Dashbaord(): JSX.Element {
       <View style={styles.profileContainer}>
         <Image source={require('../assets/static-profile.png')} />
         <Text style={{ fontSize: 27, marginRight: 21 }}>{fullName}</Text>
-        <TouchableOpacity onPress={async () => await AsyncStorage.clear('user_id')}>
+        <TouchableOpacity onPress={logOut}>
           <Text>
             Sign Out
           </Text>

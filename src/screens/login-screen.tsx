@@ -24,15 +24,15 @@ export default function LoginScreen(): JSX.Element {
 
   const checkUserId = async () => {
     try {
-      const user_id = await AsyncStorage.getItem('user_token')
-      if (user_id) {
+      const user_token = await AsyncStorage.getItem('user_token')
+      if (user_token) {
         console.log(await AsyncStorage.getItem('user_token'))
-        return user_id
+        return user_token
       }
-      return false
+      return null
 
     } catch (error) {
-      return false
+      return null
     }
   }
 
@@ -41,7 +41,7 @@ export default function LoginScreen(): JSX.Element {
 
     const isUserId = checkUserId()
     console.log(isUserId)
-    if (isUserId) {
+    if (isUserId !== null) {
       navigation.navigate('Dashboard')
     }
     return

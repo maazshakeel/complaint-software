@@ -15,7 +15,7 @@ const StackRoot = createNativeStackNavigator()
 
 const Root = () => {
   return (
-    <StackRoot.Navigator initialRouteName="Dashboard">
+    <StackRoot.Navigator initialRouteName="Login">
       <StackRoot.Screen
         name="Login"
         component={LoginScreen}
