@@ -1,18 +1,7 @@
 import client from './api'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-const getComplaints = async email => {
-
-  console.log(typeof (email))
-
-  const id = await client.get('/api/clientId',
-    {
-      headers: {
-        'x-access-token': await AsyncStorage.getItem('user_token')
-      },
-      email: 'admin',
-    }
-  )
+const getComplaints = async (email: string) => {
 
   const getComplaint = await client.get('/api/complaints',
     {
@@ -20,11 +9,8 @@ const getComplaints = async email => {
       {
         'x-access-token': await AsyncStorage.getItem('user_token')
       },
-      clientId: '219b0fae-1117-4823-83c6-72f41e6c11ef',
-      email: 'admin'
     }
   )
-  console.log(id.data)
   return getComplaint.data
 }
 

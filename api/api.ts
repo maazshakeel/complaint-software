@@ -1,4 +1,4 @@
 // Usage "{{{
 import axios from 'axios'
 
-export default axios.create({ baseURL: 'http://10.90.80.2:8000' })
+export default axios.create({ baseURL: 'http://192.168.43.21:8000' })
