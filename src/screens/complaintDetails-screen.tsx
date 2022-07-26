@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
+  Alert,
   Dimensions
 } from 'react-native'
 import React, { useState } from 'react'
@@ -16,11 +17,15 @@ import { problems } from '../components/problems'
 import * as ImagePicker from 'expo-image-picker'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import ImagePick from '../components/ImagePick'
+import { createComplaint } from '../../api/user.api'
+import client from '../../api/api'
 
 // getting height and width of screen
 const { height, width } = Dimensions.get('screen')
 
 export default function ComplaintDetails({ route, navigation }) {
+
+
   // state
   const [isChecked1, setIsChecked1] = useState(false)
   const [isChecked2, setIsChecked2] = useState(false)
@@ -29,12 +34,60 @@ export default function ComplaintDetails({ route, navigation }) {
   // urgent complaint
   const [urgentComplaint, setUrgentComplaint] = useState(false)
 
+  // photo uri
+  const [photoPath, setPhotoPath] = useState('')
+
   const [details, setDetails] = useState('')
 
   const { type } = route.params
   // Captlizing first letter
   const firstCh = type.charAt(0).toUpperCase() + type.slice(1)
   const complaintType = firstCh
+
+  const onSubmit = async () => {
+
+    const res = await client.post('/api/complaint', {
+      headers: {
+        'x-access-token': await AsyncStorage.getItem('user_token')
+      },
+      ticketNo: "00012",
+      complaintStatus: {
+        isResolved: false,
+        isClosed: false
+      },
+      complaintCategory: {
+        name: "Network"
+      },
+      complaintType: {
+        type: "dunno"
+      },
+      complaintDetails: {
+        complaintDetail: "I've been trying to connect to my network but i'm having some issues!!",
+        complaintSelectedOptions: "Nothin, Option 2332",
+        isUrgent: true
+      },
+      clientId: "219b0fae-1117-4823-83c6-72f41e6c11ef",
+      email: "admin"
+    })
+
+    console.log(res.data)
+
+
+    if (res.data.status === 'success') {
+
+      navigation.navigate('Complaint Confirmation', {
+        selectedOptions: [isChecked1, isChecked2, isChecked3, isChecked4],
+        complaintDetail: details,
+        complaintType: type,
+        complaintStatus: {
+          isResolved: false,
+          isClosed: false,
+        },
+      })
+    } else {
+      Alert.alert("Hmm something is wrong")
+    }
+  }
 
   return (
     <View style={{ flex: 1 }}>
@@ -207,7 +260,7 @@ export default function ComplaintDetails({ route, navigation }) {
           style={{ alignItems: 'center', paddingTop: 15, paddingBottom: 15 }}
         >
           <TouchableOpacity
-            onPress={() => navigation.navigate('Complaint Confirmation')}
+            onPress={onSubmit}
             style={{
               backgroundColor: '#2F5FE3',
               width: width - 47,

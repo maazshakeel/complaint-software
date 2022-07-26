@@ -26,9 +26,14 @@ export default function Dashbaord(): JSX.Element {
   }
 
   const getClientData = async () => {
-    const response = await client.get('/api/client_data', { token: await AsyncStorage.getItem('user_token') })
-    setEmail(`${response.data.email}`)
-    setFullName(`${response.data.firstName} ${response.data.lastName}`)
+    const res = await client.get('/api/client_data', {
+      headers: {
+        'x-access-token': await AsyncStorage.getItem('user_token')
+      }
+    })
+    setFullName(`${res.data.firstName} ${res.data.lastName}`)
+    setEmail(`${res.data.email}`)
+    console.log(res.data)
     return
   }
 
@@ -42,7 +47,7 @@ export default function Dashbaord(): JSX.Element {
       {/* Profile - Pending */}
       <View style={styles.profileContainer}>
         <Image source={require('../assets/static-profile.png')} />
-        <Text style={{ fontSize: 27, marginRight: 21 }}>{fullName}</Text>
+        <Text style={{ fontSize: 27, marginRight: 21 }}>{fullName}{email}</Text>
         <TouchableOpacity onPress={logOut}>
           <Text>
             Sign Out

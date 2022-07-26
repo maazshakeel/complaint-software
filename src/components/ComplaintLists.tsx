@@ -11,9 +11,9 @@ const ComplaintList: FC = ({ email }) => {
   const [complaints, setComplaints] = useState(null)
 
   const myComplaints = async () => {
-    const complaints = await getComplaints()
-    console.log([complaints])
-    setComplaints([complaints])
+    const complaints = await getComplaints(email)
+    console.log(complaints)
+    setComplaints(complaints)
     return
   }
 
@@ -21,14 +21,14 @@ const ComplaintList: FC = ({ email }) => {
     myComplaints()
   }, [])
 
-  if (!complaints) {
+  if (complaints === null) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ActivityIndicator size="large" />
       </View>
     )
   }
-  if (complaints) {
+  if (complaints !== null) {
     return (
       <ScrollView>
         {
@@ -36,7 +36,6 @@ const ComplaintList: FC = ({ email }) => {
             return <Row key={complaint.ticketNo} resolved={complaint.ComplaintStatus[0].isResolved} complaintDetail={complaint.ComplaintDetails[0].complaintDetail} complaintCategory={complaint.ComplaintCategory[0].name} />
           })
         }
-        <Text>{complaints[0].ComplaintStatus[0].id}</Text>
       </ScrollView>
     )
   }

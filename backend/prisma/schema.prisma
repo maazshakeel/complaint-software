@@ -12,33 +12,34 @@ datasource db {
 
 // client database
 model Client {
-  id         String      @id @default(uuid())
-  createdAt  DateTime    @default(now())
+  id         String       @id @default(uuid())
+  createdAt  DateTime     @default(now())
   firstName  String
   lastName   String
-  cnic       String      @unique
-  email      String      @unique
-  phoneNo    String      @unique
-  verified   Boolean     @default(false)
+  cnic       String       @unique
+  email      String       @unique
+  phoneNo    String       @unique
+  verified   Boolean      @default(false)
   block      String
   homeNo     Int
   password   String
   token      String?
-  Complaints Complaints?
+  Complaints Complaints[]
+
 }
 
 // Complaints 
 model Complaints {
   id String @id @default(uuid())
 
-  ticketNo          Int                 @unique
+  ticketNo          String                 @unique
   ComplaintDetails  ComplaintDetails[]
   Worker            Worker?
   ComplaintCategory ComplaintCategory[]
   ComplaintType     ComplaintType[]
   ComplaintStatus   ComplaintStatus[]
   client            Client              @relation(fields: [clientId], references: [id])
-  clientId          String              @unique
+  clientId          String
 }
 
 model ComplaintDetails {

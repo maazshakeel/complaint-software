@@ -14,17 +14,21 @@ const TOKEN_KEY: string = "^)<FT#ZwJ4?Xl'<<<<>>>>>>>bCpmp+<<<<>>>}ApotSTO"
 const prisma = new PrismaClient()
 
 const clientId = async (req: Request, res: Response) => {
+
+  if (!req.body.email) return res.send("Please provide email!")
+
   const user_token = req.headers['x-access-token']
   async function main() {
-    const clientId = await prisma.client.findUnique({
+    const clientId = await prisma.client.findFirst({
       where: {
-        token: user_token
+        email: req.body.email
       },
       select: {
         id: true
       }
     })
-    return res.send(clientId)
+    console.log(clientId)
+    return res.send(clientId.id)
   }
   // check errors
   main()
@@ -34,7 +38,6 @@ const clientId = async (req: Request, res: Response) => {
     .finally(async () => {
       await prisma.$disconnect()
     })
-  return res.send("")
 }
 
 const createUser = async (req: Request, res: Response) => {
@@ -159,10 +162,13 @@ const logIn = async (req: Request, res: Response) => {
 }
 
 const getClientData = async (req: Request, res: Response) => {
+
+  console.log(req.headers['x-access-token'])
+
   async function main() {
     const response = await prisma.client.findFirst({
       where: {
-        token: req.body.token
+        token: req.headers['x-access-token']
       },
       select: {
         createdAt: true,
@@ -176,6 +182,7 @@ const getClientData = async (req: Request, res: Response) => {
         homeNo: true,
       }
     })
+    console.log(response)
     return res.send(response)
   }
   main()

@@ -25,10 +25,12 @@ export default function LoginScreen(): JSX.Element {
   const checkUserId = async () => {
     try {
       const user_token = await AsyncStorage.getItem('user_token')
-      if (user_token) {
+      if (user_token !== null) {
         console.log(await AsyncStorage.getItem('user_token'))
         return user_token
       }
+      // Forget any user id
+      await AsyncStorage.clear()
       return null
 
     } catch (error) {

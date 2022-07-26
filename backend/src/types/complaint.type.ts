@@ -1,5 +1,5 @@
 export type TCreateComplaint = {
-  ticketNo: number;
+  ticketNo: string;
   complaintStatus: {
     isResolved: boolean;
     isClosed: boolean;

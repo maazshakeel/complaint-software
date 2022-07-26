@@ -17,7 +17,7 @@ CREATE TABLE "Client" (
 -- CreateTable
 CREATE TABLE "Complaints" (
     "id" TEXT NOT NULL PRIMARY KEY,
-    "ticketNo" INTEGER NOT NULL,
+    "ticketNo" TEXT NOT NULL,
     "clientId" TEXT NOT NULL,
     CONSTRAINT "Complaints_clientId_fkey" FOREIGN KEY ("clientId") REFERENCES "Client" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
@@ -152,9 +152,6 @@ CREATE UNIQUE INDEX "Client_phoneNo_key" ON "Client"("phoneNo");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Complaints_ticketNo_key" ON "Complaints"("ticketNo");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Complaints_clientId_key" ON "Complaints"("clientId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Worker_cnic_key" ON "Worker"("cnic");

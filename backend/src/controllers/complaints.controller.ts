@@ -11,10 +11,15 @@ const prisma = new PrismaClient()
 const createComplaint = (req: Request, res: Response) => {
   const { ticketNo, complaintStatus, complaintCategory, complaintType, complaintDetails, clientId }: TCreateComplaint = req.body
 
+  if (!ticketNo || !complaintType || !complaintStatus || !complaintCategory || !complaintDetails) res.send({ status: 'error', message: "Missin' fields!" })
+
+  if (!req.body.clientId) return res.send({ status: 'error', message: "Provide id!" })
+  if (!clientId) return res.send({ status: "error", message: "Please proved clientId." })
+
   async function main() {
     await prisma.complaints.create({
       data: {
-        ticketNo,
+        ticketNo: ticketNo,
         ComplaintStatus: {
           create: complaintStatus
         },
@@ -27,8 +32,8 @@ const createComplaint = (req: Request, res: Response) => {
         ComplaintType: {
           create: complaintType
         },
-        clientId,
-      }
+        clientId: clientId
+      },
     })
     return res.send("Created complaint!")
   }
@@ -79,6 +84,11 @@ const finishComplaint = (req: Request, res: Response) => {
 }
 // get complaints
 const getComplaints = (req: Request, res: Response) => {
+
+  if (!req.body.clientId) return res.send({ status: 'error', message: "Provide id" })
+
+  console.log(req.body.clientId)
+
   // get all complaints
   async function main() {
     const complaints = await prisma.complaints.findMany({
@@ -93,8 +103,10 @@ const getComplaints = (req: Request, res: Response) => {
         ComplaintType: true
       }
     })
-    console.log(complaints)
-    return res.send({ complaints })
+    if (!complaints) {
+      console.log("No compalint")
+    }
+    return res.send(complaints)
   }
   // check errors
   main()
