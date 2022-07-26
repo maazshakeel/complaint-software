@@ -3,6 +3,7 @@ import { PrismaClient } from "@prisma/client"
 import jwt from 'jsonwebtoken'
 import env from 'dotenv'
 env.config()
+// @ts-ignore
 import bcrypt from 'bcryptjs'
 
 // import types

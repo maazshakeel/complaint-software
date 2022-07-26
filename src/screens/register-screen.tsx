@@ -48,7 +48,7 @@ export default function RegisterScreen() {
       navigation.navigate('Login')
       return
     } else {
-      Alert.alert("Hmm, Something is wrong...")
+      Alert.alert(signUp.data.message)
     }
 
     /* if (result) {

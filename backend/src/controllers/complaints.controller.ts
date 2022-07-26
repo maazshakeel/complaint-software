@@ -12,8 +12,7 @@ const prisma = new PrismaClient()
 const createComplaint = (req: Request, res: Response) => {
   const { ticketNo, complaintStatus, complaintCategory, complaintType, complaintDetails }: TCreateComplaint = req.body
 
-  const decoded = jwt.verify(req.headers['x-access-token'], TOKEN_KEY);
-  console.log(decoded.id)
+  const { user_id } = jwt.verify(req.headers['x-access-token'], TOKEN_KEY);
 
   if (!ticketNo || !complaintType || !complaintStatus || !complaintCategory || !complaintDetails) res.send({ status: 'error', message: "Missin' fields!" })
 
@@ -33,7 +32,7 @@ const createComplaint = (req: Request, res: Response) => {
         ComplaintType: {
           create: complaintType
         },
-        clientId: decoded.id
+        clientId: user_id.id
       },
     })
     return res.send("Created complaint!")
@@ -86,13 +85,14 @@ const finishComplaint = (req: Request, res: Response) => {
 // get complaints
 const getComplaints = (req: Request, res: Response) => {
 
-  const decoded = jwt.verify(req.headers['x-access-token'], TOKEN_KEY);
+  const { user_id } = jwt.verify(req.headers['x-access-token'], TOKEN_KEY);
+  console.log(user_id.id)
 
   // get all complaints
   async function main() {
     const complaints = await prisma.complaints.findMany({
       where: {
-        clientId: decoded.id
+        clientId: user_id.id
       },
       select: {
         ticketNo: true,
