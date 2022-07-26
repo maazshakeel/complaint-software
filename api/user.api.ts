@@ -20,7 +20,7 @@ const getComplaints = async email => {
       {
         'x-access-token': await AsyncStorage.getItem('user_token')
       },
-      clientId: id.data,
+      clientId: '219b0fae-1117-4823-83c6-72f41e6c11ef',
       email: 'admin'
     }
   )

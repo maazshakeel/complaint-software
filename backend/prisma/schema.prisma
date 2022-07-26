@@ -25,14 +25,13 @@ model Client {
   password   String
   token      String?
   Complaints Complaints[]
-
 }
 
 // Complaints 
 model Complaints {
   id String @id @default(uuid())
 
-  ticketNo          String                 @unique
+  ticketNo          String              @unique
   ComplaintDetails  ComplaintDetails[]
   Worker            Worker?
   ComplaintCategory ComplaintCategory[]

@@ -1,6 +1,7 @@
 import { Request, Response } from "express"
 import { PrismaClient } from "@prisma/client"
 import { TCreateComplaint } from "../types/complaint.type"
+import jwt from 'jsonwebtoken'
 
 const TOKEN_KEY: string = "^)<FT#ZwJ4?Xl'<<<<>>>>>>>bCpmp+<<<<>>>}ApotSTO"
 
@@ -11,15 +12,15 @@ const prisma = new PrismaClient()
 const createComplaint = (req: Request, res: Response) => {
   const { ticketNo, complaintStatus, complaintCategory, complaintType, complaintDetails, clientId }: TCreateComplaint = req.body
 
-  if (!ticketNo || !complaintType || !complaintStatus || !complaintCategory || !complaintDetails) res.send({ status: 'error', message: "Missin' fields!" })
+  const decoded = jwt.verify(req.headers['x-access-token'], TOKEN_KEY);
+  console.log(decoded.id)
 
-  if (!req.body.clientId) return res.send({ status: 'error', message: "Provide id!" })
-  if (!clientId) return res.send({ status: "error", message: "Please proved clientId." })
+  if (!ticketNo || !complaintType || !complaintStatus || !complaintCategory || !complaintDetails) res.send({ status: 'error', message: "Missin' fields!" })
 
   async function main() {
     await prisma.complaints.create({
       data: {
-        ticketNo: ticketNo,
+        ticketNo: "00034",
         ComplaintStatus: {
           create: complaintStatus
         },
@@ -32,7 +33,7 @@ const createComplaint = (req: Request, res: Response) => {
         ComplaintType: {
           create: complaintType
         },
-        clientId: clientId
+        clientId: decoded.id
       },
     })
     return res.send("Created complaint!")

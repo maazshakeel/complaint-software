@@ -30,7 +30,7 @@ export default function LoginScreen(): JSX.Element {
         return user_token
       }
       // Forget any user id
-      await AsyncStorage.clear()
+      await AsyncStorage.removeItem('user_token')
       return null
 
     } catch (error) {
@@ -42,9 +42,9 @@ export default function LoginScreen(): JSX.Element {
   useEffect(() => {
 
     const isUserId = checkUserId()
-    console.log(isUserId)
-    if (isUserId !== null) {
-      navigation.navigate('Dashboard')
+    console.log(!isUserId !== null)
+    if (!isUserId !== null) {
+      navigation.navigate('Login')
     }
     return
   }, [])
@@ -52,7 +52,7 @@ export default function LoginScreen(): JSX.Element {
   const logIn = async () => {
 
     // Forget any user id 
-    await AsyncStorage.clear()
+    await AsyncStorage.removeItem('user_token')
 
     if (!email || !password) {
       Alert.alert('Field Missing')

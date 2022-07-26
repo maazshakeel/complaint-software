@@ -12,4 +12,4 @@ app.use(express.json());
 app.use(router)
 
 // running server
-app.listen(8000, '10.90.80.2', () => console.log("Server is running!"))
+app.listen(8000, 'localhost', () => console.log("Server is running!"))

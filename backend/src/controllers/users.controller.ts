@@ -75,7 +75,7 @@ const createUser = async (req: Request, res: Response) => {
         email,
         phoneNo,
         block,
-        homeNo: parseInt(homeNo),
+        homeNo: homeNo,
         password: hashedPass,
         verified,
       }
