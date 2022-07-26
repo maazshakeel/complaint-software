@@ -10,7 +10,7 @@ const prisma = new PrismaClient()
 
 // create complaint
 const createComplaint = (req: Request, res: Response) => {
-  const { ticketNo, complaintStatus, complaintCategory, complaintType, complaintDetails, clientId }: TCreateComplaint = req.body
+  const { ticketNo, complaintStatus, complaintCategory, complaintType, complaintDetails }: TCreateComplaint = req.body
 
   const decoded = jwt.verify(req.headers['x-access-token'], TOKEN_KEY);
   console.log(decoded.id)
@@ -20,7 +20,7 @@ const createComplaint = (req: Request, res: Response) => {
   async function main() {
     await prisma.complaints.create({
       data: {
-        ticketNo: "00034",
+        ticketNo,
         ComplaintStatus: {
           create: complaintStatus
         },
