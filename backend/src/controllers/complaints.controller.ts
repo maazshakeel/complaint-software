@@ -86,15 +86,13 @@ const finishComplaint = (req: Request, res: Response) => {
 // get complaints
 const getComplaints = (req: Request, res: Response) => {
 
-  if (!req.body.clientId) return res.send({ status: 'error', message: "Provide id" })
-
-  console.log(req.body.clientId)
+  const decoded = jwt.verify(req.headers['x-access-token'], TOKEN_KEY);
 
   // get all complaints
   async function main() {
     const complaints = await prisma.complaints.findMany({
       where: {
-        clientId: req.body.clientId,
+        clientId: decoded.id
       },
       select: {
         ticketNo: true,
