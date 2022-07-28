@@ -3,7 +3,11 @@ import {
   welcome,
   createComplaint,
   finishComplaint,
-  getComplaints
+  getComplaints,
+  getComplaintsDetails,
+  getComplaintCategory,
+  getComplaintStatus,
+  getComplaintType
 } from '../controllers/complaints.controller'
 import { verifyToken } from '../middlewares/auth.middleware'
 
@@ -30,6 +34,30 @@ router.get(
   "/api/complaints",
   verifyToken,
   getComplaints
+)
+
+router.get(
+  "/api/complaintDetails",
+  verifyToken,
+  getComplaintsDetails
+)
+
+router.get(
+  "/api/complaintStatus",
+  verifyToken,
+  getComplaintStatus
+)
+
+router.get(
+  "/api/complaintType",
+  verifyToken,
+  getComplaintType
+)
+
+router.get(
+  "/api/complaintCategory",
+  verifyToken,
+  getComplaintCategory
 )
 
 export default router;

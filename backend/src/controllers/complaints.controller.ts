@@ -18,20 +18,31 @@ const createComplaint = (req: Request, res: Response) => {
   async function main() {
     await prisma.complaints.create({
       data: {
-        ticketNo,
+        ticketNo: "00002",
         ComplaintStatus: {
-          create: complaintStatus
+          create: {
+            isResolved: false,
+            isClosed: false
+          }
         },
         ComplaintCategory: {
-          create: complaintCategory
+          create: {
+            name: "nothin"
+          }
         },
         ComplaintDetails: {
-          create: complaintDetails
+          create: {
+            complaintDetail: "I am having issues with my network!",
+            complaintSelectedOptions: "Nothing much, here, option",
+            isUrgent: false
+          }
         },
         ComplaintType: {
-          create: complaintType
+          create: {
+            type: "Plumbing"
+          }
         },
-        clientId: 'a801ae84-460f-41eb-bde2-19baa63cfd4b'
+        clientId: 'c7dfb5c3-4d45-43ca-b091-53b378f43285'
       },
     })
     return res.send("Created complaint!")
@@ -85,6 +96,7 @@ const finishComplaint = (req: Request, res: Response) => {
 const getComplaints = (req: Request, res: Response) => {
 
   const { user_id } = jwt.verify(req.headers['x-access-token'], TOKEN_KEY);
+
   console.log(user_id.id)
 
   // get all complaints
@@ -115,8 +127,136 @@ const getComplaints = (req: Request, res: Response) => {
       await prisma.$disconnect()
     })
 }
+
+// get complaint detail
+const getComplaintsDetails = (req: Request, res: Response) => {
+
+  const { user_id } = jwt.verify(req.headers['x-access-token'], TOKEN_KEY);
+
+  console.log(user_id.id)
+
+  // get all complaints
+  async function main() {
+    const complaints = await prisma.complaints.findMany({
+      where: {
+        clientId: user_id.id
+      },
+      select: {
+        ComplaintDetails: true,
+      }
+    })
+    if (!complaints) {
+      console.log("No compalint")
+    }
+    return res.send(complaints)
+  }
+  // check errors
+  main()
+    .catch((e) => {
+      res.send({ status: 'error', error: e.message })
+    })
+    .finally(async () => {
+      await prisma.$disconnect()
+    })
+}
+//
+// get complaint status
+const getComplaintStatus = (req: Request, res: Response) => {
+
+  const { user_id } = jwt.verify(req.headers['x-access-token'], TOKEN_KEY);
+
+  console.log(user_id.id)
+
+  // get all complaints
+  async function main() {
+    const complaints = await prisma.complaints.findMany({
+      where: {
+        clientId: user_id.id
+      },
+      select: {
+        ComplaintStatus: true,
+      }
+    })
+    if (!complaints) {
+      console.log("No compalint")
+    }
+    return res.send(complaints)
+  }
+  // check errors
+  main()
+    .catch((e) => {
+      res.send({ status: 'error', error: e.message })
+    })
+    .finally(async () => {
+      await prisma.$disconnect()
+    })
+}
+
+// get complaint category
+const getComplaintCategory = (req: Request, res: Response) => {
+
+  const { user_id } = jwt.verify(req.headers['x-access-token'], TOKEN_KEY);
+
+  console.log(user_id.id)
+
+  // get all complaints
+  async function main() {
+    const complaints = await prisma.complaints.findMany({
+      where: {
+        clientId: user_id.id
+      },
+      select: {
+        ComplaintCategory: true,
+      }
+    })
+    if (!complaints) {
+      console.log("No compalint")
+    }
+    return res.send(complaints)
+  }
+  // check errors
+  main()
+    .catch((e) => {
+      res.send({ status: 'error', error: e.message })
+    })
+    .finally(async () => {
+      await prisma.$disconnect()
+    })
+}
+
+// get complaint type
+const getComplaintType = (req: Request, res: Response) => {
+
+  const { user_id } = jwt.verify(req.headers['x-access-token'], TOKEN_KEY);
+
+  console.log(user_id.id)
+
+  // get all complaints
+  async function main() {
+    const complaints = await prisma.complaints.findMany({
+      where: {
+        clientId: user_id.id
+      },
+      select: {
+        ComplaintType: true,
+      }
+    })
+    if (!complaints) {
+      console.log("No compalint")
+    }
+    return res.send(complaints)
+  }
+  // check errors
+  main()
+    .catch((e) => {
+      res.send({ status: 'error', error: e.message })
+    })
+    .finally(async () => {
+      await prisma.$disconnect()
+    })
+}
 const welcome = (req: Request, res: Response) => {
   //return res.json({ok: "Welcome 🙌"});
 };
 
-export { welcome, createComplaint, finishComplaint, getComplaints }
+export { welcome, createComplaint, getComplaintType, getComplaintStatus, getComplaintCategory, getComplaintsDetails, finishComplaint, getComplaints }
