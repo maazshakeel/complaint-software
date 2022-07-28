@@ -13,6 +13,7 @@ import colors from '../assets/colors'
 import { useNavigation } from '@react-navigation/native'
 import HL from '../components/hr'
 import { CheckBox, Input } from 'react-native-elements'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { problems } from '../components/problems'
 import * as ImagePicker from 'expo-image-picker'
 import Icon from 'react-native-vector-icons/FontAwesome5'
@@ -35,9 +36,9 @@ export default function ComplaintDetails({ route, navigation }) {
   const [urgentComplaint, setUrgentComplaint] = useState(false)
 
   // photo uri
-  const [photoPath, setPhotoPath] = useState('')
+  const [photoPath, setPhotoPath] = useState(null)
 
-  const [details, setDetails] = useState('')
+  const [details, setDetails] = useState(null)
 
   const { type } = route.params
   // Captlizing first letter
@@ -46,34 +47,13 @@ export default function ComplaintDetails({ route, navigation }) {
 
   const onSubmit = async () => {
 
-    const res = await client.post('/api/complaint', {
-      headers: {
-        'x-access-token': await AsyncStorage.getItem('user_token')
-      },
-      ticketNo: "00012",
-      complaintStatus: {
-        isResolved: false,
-        isClosed: false
-      },
-      complaintCategory: {
-        name: "Network"
-      },
-      complaintType: {
-        type: "dunno"
-      },
-      complaintDetails: {
-        complaintDetail: "I've been trying to connect to my network but i'm having some issues!!",
-        complaintSelectedOptions: "Nothin, Option 2332",
-        isUrgent: true
-      },
-      clientId: "219b0fae-1117-4823-83c6-72f41e6c11ef",
-      email: "admin"
-    })
+    if (!details || !photoPath) Alert.alert("Field missin'")
+    if (isChecked1 === false || isChecked2 === false || isChecked3 === false || isChecked4 === false) Alert.alert('Field missin')
 
+    const res = await createComplaint()
     console.log(res.data)
 
-
-    if (res.data.status === 'success') {
+    /* if (res.data.status === 'success') {
 
       navigation.navigate('Complaint Confirmation', {
         selectedOptions: [isChecked1, isChecked2, isChecked3, isChecked4],
@@ -86,7 +66,7 @@ export default function ComplaintDetails({ route, navigation }) {
       })
     } else {
       Alert.alert("Hmm something is wrong")
-    }
+    } */
   }
 
   return (

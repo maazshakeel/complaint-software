@@ -1,15 +1,14 @@
 // imports
-import { ScrollView, StatusBar } from 'native-base'
+import { StatusBar } from 'native-base'
 import React, { useEffect, useState } from 'react'
 import { View, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { Header, Text } from 'react-native-elements'
+import { Text } from 'react-native-elements'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
 import HL from '../components/hr'
 import ComplaintList from '../components/ComplaintLists'
-import Circle from '../components/Circle'
 import client from '../../api/api'
 
 export default function Dashbaord(): JSX.Element {

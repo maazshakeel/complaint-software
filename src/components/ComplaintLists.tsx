@@ -9,11 +9,13 @@ import { getComplaints } from '../../api/user.api'
 const ComplaintList: FC = ({ email }) => {
 
   const [complaints, setComplaints] = useState(null)
+  const [complaintDetail, setComplaintDetail] = useState('')
 
   const myComplaints = async () => {
     const complaints = await getComplaints(email)
     console.log(complaints)
     setComplaints(complaints)
+    console.log(complaints.map(complaint => complaint.ComplaintCategory[0]))
     return
   }
 
@@ -33,9 +35,10 @@ const ComplaintList: FC = ({ email }) => {
       <ScrollView>
         {
           complaints.map(complaint => {
-            return <Row key={complaint.ticketNo} resolved={complaint.ComplaintStatus[0].isResolved} complaintDetail={complaint.ComplaintDetails[0].complaintDetail} complaintCategory={complaint.ComplaintCategory[0].name} />
+            return <Row key={complaint.ticketNo} resolved={complaint.ComplaintStatus.isResolved} complaintDetail={complaintDetail} complaintCategory={"plum"} />
           })
         }
+
       </ScrollView>
     )
   }

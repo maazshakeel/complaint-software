@@ -15,7 +15,8 @@ router.get(
 )
 
 router.post(
-  "/api/complaint",
+  "/api/createComplaint",
+  verifyToken,
   createComplaint
 )
 

@@ -15,30 +15,35 @@ const getComplaints = async (email: string) => {
 }
 
 const createComplaint = async () => {
-  console.log(await AsyncStorage.getItem('user_token'))
-  const resp = await client.post('/api/complaint', {
+
+  const config = {
     headers: {
       'x-access-token': await AsyncStorage.getItem('user_token')
-    },
-    ticketNo: "00012",
-    complaintStatus: {
+    }
+  }
+
+  const data = {
+    ticketNo: "00488",
+    ComplaintStatus: {
       isResolved: false,
       isClosed: false
     },
-    complaintCategory: {
+    ComplaintCategory: {
       name: "Network"
     },
-    complaintType: {
+    ComplaintType: {
       type: "dunno"
     },
-    complaintDetails: {
+    ComplaintDetails: {
       complaintDetail: "I've been trying to connect to my network but i'm having some issues!!",
       complaintSelectedOptions: "Nothin, Option 2332",
       isUrgent: true
     },
-    clientId: "219b0fae-1117-4823-83c6-72f41e6c11ef",
-    email: "admin"
-  })
+
+  }
+
+  console.log(await AsyncStorage.getItem('user_token'))
+  const resp = await client.post('/api/createComplaint', data, config)
 
   console.log(resp.data)
 

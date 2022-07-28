@@ -18,8 +18,8 @@ CREATE TABLE "Client" (
 CREATE TABLE "Complaints" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "ticketNo" TEXT NOT NULL,
-    "clientId" TEXT NOT NULL,
-    CONSTRAINT "Complaints_clientId_fkey" FOREIGN KEY ("clientId") REFERENCES "Client" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    "clientId" TEXT,
+    CONSTRAINT "Complaints_clientId_fkey" FOREIGN KEY ("clientId") REFERENCES "Client" ("id") ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 -- CreateTable

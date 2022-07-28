@@ -13,8 +13,7 @@ const createComplaint = (req: Request, res: Response) => {
   const { ticketNo, complaintStatus, complaintCategory, complaintType, complaintDetails }: TCreateComplaint = req.body
 
   const { user_id } = jwt.verify(req.headers['x-access-token'], TOKEN_KEY);
-
-  if (!ticketNo || !complaintType || !complaintStatus || !complaintCategory || !complaintDetails) res.send({ status: 'error', message: "Missin' fields!" })
+  console.log(user_id)
 
   async function main() {
     await prisma.complaints.create({
@@ -32,7 +31,7 @@ const createComplaint = (req: Request, res: Response) => {
         ComplaintType: {
           create: complaintType
         },
-        clientId: user_id.id
+        clientId: 'a801ae84-460f-41eb-bde2-19baa63cfd4b'
       },
     })
     return res.send("Created complaint!")

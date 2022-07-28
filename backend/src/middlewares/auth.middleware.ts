@@ -4,6 +4,8 @@ import { Request, Response, NextFunction } from 'express';
 
 const config = process.env;
 
+const TOKEN_KEY: string = "^)<FT#ZwJ4?Xl'<<<<>>>>>>>bCpmp+<<<<>>>}ApotSTO"
+
 const verifyToken = (req: Request, res: Response, next: NextFunction) => {
   const token =
     req.body.token || req.query.token || req.headers["x-access-token"];
@@ -13,7 +15,7 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
     return res.status(403).send("A token is required for authentication");
   }
   try {
-    const decoded = jwt.verify(token, config.TOKEN_KEY);
+    const decoded = jwt.verify(token, TOKEN_KEY);
     console.log(decoded)
     // req.user = decoded;
   } catch (err) {
