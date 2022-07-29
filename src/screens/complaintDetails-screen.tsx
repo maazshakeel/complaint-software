@@ -47,8 +47,39 @@ export default function ComplaintDetails({ route, navigation }) {
 
   const onSubmit = async () => {
 
-    if (!details || !photoPath) Alert.alert("Field missin'")
-    if (isChecked1 === false || isChecked2 === false || isChecked3 === false || isChecked4 === false) Alert.alert('Field missin')
+    const data = [
+      {
+        ticketNo: "12013",
+        ComplaintCategory: [
+          {
+            id: "94db69bf-7d57-4217-a37d-a8b0b89438af",
+            name: "Parking"
+          }
+        ],
+        ComplaintStatus: [
+          {
+            id: "97d845bf-db40-4c7c-b5a6-72e530611bd5",
+            whenRaised: "2022-07-26T17:16:10.591Z",
+            isResolved: false,
+            isClosed: false
+          }
+        ],
+        ComplaintDetails: [
+          {
+            id: "6d0ec5ec-239d-464a-8a30-8f33af9e9438",
+            complaintDetail: "Moiz complaint detail!!",
+            complaintSelectedOptions: "Nothin, Option 2332",
+            isUrgent: true
+          }
+        ],
+        ComplaintType: [
+          {
+            id: "d138a3ae-cebe-458f-97f1-e5cb5707ba9e",
+            type: "dunno"
+          }
+        ]
+      },
+    ]
 
     const res = await createComplaint()
     console.log(res.data)

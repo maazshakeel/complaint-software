@@ -2,6 +2,7 @@ import { Request, Response } from "express"
 import { PrismaClient } from "@prisma/client"
 import { TCreateComplaint } from "../types/complaint.type"
 import jwt from 'jsonwebtoken'
+import ComplaintList from "../../../src/components/ComplaintLists"
 
 const TOKEN_KEY: string = "^)<FT#ZwJ4?Xl'<<<<>>>>>>>bCpmp+<<<<>>>}ApotSTO"
 
@@ -13,36 +14,36 @@ const createComplaint = (req: Request, res: Response) => {
   const { ticketNo, complaintStatus, complaintCategory, complaintType, complaintDetails }: TCreateComplaint = req.body
 
   const { user_id } = jwt.verify(req.headers['x-access-token'], TOKEN_KEY);
-  console.log(user_id)
+  console.log(user_id.id)
 
   async function main() {
     await prisma.complaints.create({
       data: {
-        ticketNo: "00002",
+        ticketNo,
         ComplaintStatus: {
           create: {
-            isResolved: false,
-            isClosed: false
+            isResolved: complaintStatus.isResolved,
+            isClosed: complaintStatus.isClosed
           }
         },
         ComplaintCategory: {
           create: {
-            name: "nothin"
+            name: complaintCategory.name
           }
         },
         ComplaintDetails: {
           create: {
-            complaintDetail: "I am having issues with my network!",
-            complaintSelectedOptions: "Nothing much, here, option",
-            isUrgent: false
+            complaintDetail: complaintDetails.complaintDetail,
+            complaintSelectedOptions: complaintDetails.complaintSelectedOptions,
+            isUrgent: complaintDetails.isUrgent
           }
         },
         ComplaintType: {
           create: {
-            type: "Plumbing"
+            type: complaintType.type
           }
         },
-        clientId: 'c7dfb5c3-4d45-43ca-b091-53b378f43285'
+        clientId: user_id.id
       },
     })
     return res.send("Created complaint!")

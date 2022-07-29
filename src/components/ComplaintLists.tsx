@@ -6,16 +6,17 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from '@react-navigation/native'
 import { getComplaints } from '../../api/user.api'
 
-const ComplaintList: FC = ({ email }) => {
+const ComplaintList = ({ email }) => {
 
   const [complaints, setComplaints] = useState(null)
   const [complaintDetail, setComplaintDetail] = useState('')
 
   const myComplaints = async () => {
     const complaints = await getComplaints(email)
-    console.log(complaints)
     setComplaints(complaints)
-    console.log(complaints.map(complaint => complaint.ComplaintCategory[0]))
+    const s = complaints.map(dt => dt.ComplaintDetails.map(detail => detail))
+    console.log(s)
+    setComplaintDetail(s[1][0].complaintDetail)
     return
   }
 

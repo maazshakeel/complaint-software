@@ -14,7 +14,7 @@ const getComplaints = async (email: string) => {
   return getComplaint.data
 }
 
-const createComplaint = async () => {
+const createComplaint = async (ticketNo, complaintStatus, complaintCategory, complaintType, complaintDetails) => {
 
   const config = {
     headers: {
@@ -23,23 +23,22 @@ const createComplaint = async () => {
   }
 
   const data = {
-    ticketNo: "00488",
+    ticketNo,
     ComplaintStatus: {
-      isResolved: false,
-      isClosed: false
+      isResolved: complaintStatus.isResolved,
+      isClosed: complaintStatus.isClosed
     },
     ComplaintCategory: {
-      name: "Network"
+      name: complaintCategory.name
     },
     ComplaintType: {
-      type: "dunno"
+      type: complaintType.type
     },
     ComplaintDetails: {
-      complaintDetail: "I've been trying to connect to my network but i'm having some issues!!",
-      complaintSelectedOptions: "Nothin, Option 2332",
-      isUrgent: true
+      complaintDetail: complaintDetails.complaintDetail,
+      complaintSelectedOptions: complaintDetails.complaintSelectedOptions,
+      isUrgent: complaintDetails.isUrgent
     },
-
   }
 
   console.log(await AsyncStorage.getItem('user_token'))
