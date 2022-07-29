@@ -5,7 +5,7 @@ const fiveDigitNo = () => {
   let max: number = 99999
 
   // generate random number of 5 digits
-  let randomNum = Math.floor(Math.random() * min) + max
+  let randomNum: number = Math.floor(Math.random() * min) + max
 
   // return the random 5 digit number
   return randomNum

@@ -14,7 +14,7 @@ const getComplaints = async (email: string) => {
   return getComplaint.data
 }
 
-const createComplaint = async (ticketNo, complaintStatus, complaintCategory, complaintType, complaintDetails) => {
+const createComplaint = async (complaint) => {
 
   const config = {
     headers: {
@@ -23,21 +23,21 @@ const createComplaint = async (ticketNo, complaintStatus, complaintCategory, com
   }
 
   const data = {
-    ticketNo,
+    ticketNo: complaint.ticketNo,
     ComplaintStatus: {
-      isResolved: complaintStatus.isResolved,
-      isClosed: complaintStatus.isClosed
+      isResolved: complaint.complaintStatus.isResolved,
+      isClosed: complaint.complaintStatus.isClosed
     },
     ComplaintCategory: {
-      name: complaintCategory.name
+      name: complaint.complaintCategory.name
     },
     ComplaintType: {
-      type: complaintType.type
+      type: complaint.complaintType.type
     },
     ComplaintDetails: {
-      complaintDetail: complaintDetails.complaintDetail,
-      complaintSelectedOptions: complaintDetails.complaintSelectedOptions,
-      isUrgent: complaintDetails.isUrgent
+      complaintDetail: complaint.complaintDetails.complaintDetail,
+      complaintSelectedOptions: complaint.complaintDetails.complaintSelectedOptions,
+      isUrgent: complaint.complaintDetails.isUrgent
     },
   }
 
