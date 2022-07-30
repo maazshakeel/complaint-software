@@ -44,7 +44,7 @@ const ComplaintList = ({ email }) => {
       <ScrollView>
         {
           complaints.map(complaint => {
-            return <Row key={complaint.ticketNo} resolved={false} complaintDetail={JSON.stringify(complaint.ComplaintDetails.map(d => d.complaintDetail)[0])} complaintCategory={"plum"} ticketNumber={complaint.ticketNo} />
+            return <Row key={complaint.ticketNo} resolved={false} complaintDetail={JSON.stringify(complaint.ComplaintDetails.map(d => d.complaintDetail)[0])} complaintCategory={JSON.stringify(complaint.ComplaintCategory.map(d => d.name)[0], (key, value: string) => value.substr(0))} ticketNumber={complaint.ticketNo} />
           })
         }
 
