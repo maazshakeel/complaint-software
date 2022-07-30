@@ -1,5 +1,6 @@
 import client from './api'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { getComplaintCategory } from '../backend/src/controllers/complaints.controller'
 
 const getComplaints = async (email: string) => {
 
@@ -14,7 +15,7 @@ const getComplaints = async (email: string) => {
   return getComplaint.data
 }
 
-const createComplaint = async (complaint) => {
+const createComplaint = async (complaintCategory, ticketNo, complaintDetail, isUrgent) => {
 
   const config = {
     headers: {
@@ -23,28 +24,26 @@ const createComplaint = async (complaint) => {
   }
 
   const data = {
-    ticketNo: complaint.ticketNo,
+    ticketNo,
     ComplaintStatus: {
-      isResolved: complaint.complaintStatus.isResolved,
-      isClosed: complaint.complaintStatus.isClosed
+      isResolved: false,
+      isClosed: false,
     },
     ComplaintCategory: {
-      name: complaint.complaintCategory.name
+      name: complaintCategory
     },
     ComplaintType: {
-      type: complaint.complaintType.type
+      type: "dunno"
     },
     ComplaintDetails: {
-      complaintDetail: complaint.complaintDetails.complaintDetail,
-      complaintSelectedOptions: complaint.complaintDetails.complaintSelectedOptions,
-      isUrgent: complaint.complaintDetails.isUrgent
+      complaintDetail: complaintDetail,
+      complaintSelectedOptions: "nothin",
+      isUrgent,
     },
   }
 
   console.log(await AsyncStorage.getItem('user_token'))
   const resp = await client.post('/api/createComplaint', data, config)
-
-  console.log(resp.data)
 
   return resp.data
 }

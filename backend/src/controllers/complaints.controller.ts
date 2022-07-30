@@ -43,7 +43,7 @@ const createComplaint = (req: Request, res: Response) => {
             type: complaintType.type
           }
         },
-        clientId: user_id.id
+        clientId: "dc86d823-ac73-4b94-a5a4-049d42a9348b"
       },
     })
     return res.send("Created complaint!")
@@ -93,6 +93,38 @@ const finishComplaint = (req: Request, res: Response) => {
       await prisma.$disconnect()
     })
 }
+
+// show complaint
+const showComplaint = (req: Request, res: Response) => {
+  // id
+  const { user_id } = jwt.verify(req.headers['x-access-token'], TOKEN_KEY)
+  const id = user_id.id
+
+  // get complaint
+  async function main() {
+    const complaints = await prisma.complaints.findMany({
+      where: {
+        clientId: id
+      },
+      select: {
+        ticketNo: true,
+        ComplaintCategory: true,
+        ComplaintStatus: true,
+        ComplaintDetails: true,
+      }
+    })
+    return res.send(complaints)
+  }
+  // check errors
+  main()
+    .catch((e) => {
+      res.send({ status: 'error', error: e.message })
+    })
+    .finally(async () => {
+      await prisma.$disconnect()
+    })
+}
+
 // get complaints
 const getComplaints = (req: Request, res: Response) => {
 
@@ -228,6 +260,8 @@ const getComplaintCategory = (req: Request, res: Response) => {
 // get complaint type
 const getComplaintType = (req: Request, res: Response) => {
 
+  return res.send("Hello")
+
   const { user_id } = jwt.verify(req.headers['x-access-token'], TOKEN_KEY);
 
   console.log(user_id.id)
@@ -245,6 +279,7 @@ const getComplaintType = (req: Request, res: Response) => {
     if (!complaints) {
       console.log("No compalint")
     }
+
     return res.send(complaints)
   }
   // check errors
@@ -260,4 +295,4 @@ const welcome = (req: Request, res: Response) => {
   //return res.json({ok: "Welcome 🙌"});
 };
 
-export { welcome, createComplaint, getComplaintType, getComplaintStatus, getComplaintCategory, getComplaintsDetails, finishComplaint, getComplaints }
+export { welcome, createComplaint, showComplaint, getComplaintType, getComplaintStatus, getComplaintCategory, getComplaintsDetails, finishComplaint, getComplaints }

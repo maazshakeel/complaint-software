@@ -1,6 +1,7 @@
 import express from 'express'
 import {
   welcome,
+  showComplaint,
   createComplaint,
   finishComplaint,
   getComplaints,
@@ -22,6 +23,12 @@ router.post(
   "/api/createComplaint",
   verifyToken,
   createComplaint
+)
+
+router.get(
+  "/api/showComplaint",
+  verifyToken,
+  showComplaint
 )
 
 router.delete(

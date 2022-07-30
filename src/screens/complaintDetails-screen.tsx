@@ -48,42 +48,11 @@ export default function ComplaintDetails({ route, navigation }) {
 
   const onSubmit = async () => {
 
-    const data = {
-      ticketNo: fiveDigitNo,
-      ComplaintCategory: {
-        name: type
-      },
-      ComplaintStatus: {
-        isResolved: false,
-        isClosed: false
-      },
-      ComplaintDetails: {
-        complaintDetail: details,
-        complaintSelectedOptions: "Nothin, Option 2332",
-        isUrgent: urgentComplaint
-      },
-      ComplaintType: {
-        type: "dunno"
-      }
-    }
-
-    const res = await createComplaint()
+    const ticketNo = fiveDigitNo()
+    const res = await createComplaint(type, ticketNo, details, urgentComplaint)
     console.log(res.data)
 
-    /* if (res.data.status === 'success') {
-
-      navigation.navigate('Complaint Confirmation', {
-        selectedOptions: [isChecked1, isChecked2, isChecked3, isChecked4],
-        complaintDetail: details,
-        complaintType: type,
-        complaintStatus: {
-          isResolved: false,
-          isClosed: false,
-        },
-      })
-    } else {
-      Alert.alert("Hmm something is wrong")
-    } */
+    navigation.navigate('Dashboard')
   }
 
   return (

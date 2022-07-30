@@ -22,15 +22,16 @@ export default function LoginScreen(): JSX.Element {
   const [errorMessage, setErrorMessage] = useState('')
   const navigation = useNavigation()
 
-  const checkUserId = async () => {
+  /* const checkUserId = async () => {
     try {
       const user_token = await AsyncStorage.getItem('user_token')
+      console.log(await AsyncStorage.getItem('user_token'))
       if (user_token !== null) {
         console.log(await AsyncStorage.getItem('user_token'))
         return user_token
       }
       // Forget any user id
-      await AsyncStorage.removeItem('user_token')
+      await AsyncStorage.clear()
       return null
 
     } catch (error) {
@@ -42,12 +43,14 @@ export default function LoginScreen(): JSX.Element {
   useEffect(() => {
 
     const isUserId = checkUserId()
-    console.log(!isUserId !== null)
-    if (!isUserId !== null) {
+    console.log(isUserId === null)
+    if (isUserId !== null) {
       navigation.navigate('Login')
+    } else {
+      navigation.navigate('Dashboard')
     }
     return
-  }, [])
+  }, []) */
 
   const logIn = async () => {
 
