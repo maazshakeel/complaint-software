@@ -12,7 +12,7 @@ import Circle from './Circle'
 import ComplaintCardBottomButton from './ComplaintCardBottomButton'
 
 // height, width
-const { height, width } = Dimensions.get('screen')
+const { width } = Dimensions.get('screen')
 
 // interface
 interface IRowProps {

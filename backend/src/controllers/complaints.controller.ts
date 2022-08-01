@@ -43,7 +43,7 @@ const createComplaint = (req: Request, res: Response) => {
             type: complaintType.type
           }
         },
-        clientId: "dc86d823-ac73-4b94-a5a4-049d42a9348b"
+        clientId: "a106d6bb-0d42-48ef-9c96-9c038e88842c"
       },
     })
     return res.send("Created complaint!")

@@ -20,7 +20,8 @@ const ComplaintList = ({ email }) => {
     const sub_data = details.map(d => d[0])
     const ticketNo = complaints.map(complaint => complaint.ticketNo)
     setTicketNo(ticketNo)
-    console.log()
+    const resolved = complaints.map(complaint => complaint.ComplaintStatus.map(d => d.isResolved))
+    console.log(resolved[0][0])
 
     const realComplaintDetail = sub_data.map(real => real.complaintDetail)
     setComplaintDetails(sub_data)
@@ -44,7 +45,7 @@ const ComplaintList = ({ email }) => {
       <ScrollView>
         {
           complaints.map(complaint => {
-            return <Row key={complaint.ticketNo} resolved={false} complaintDetail={JSON.stringify(complaint.ComplaintDetails.map(d => d.complaintDetail)[0])} complaintCategory={JSON.stringify(complaint.ComplaintCategory.map(d => d.name)[0], (key, value: string) => value.substr(0))} ticketNumber={complaint.ticketNo} />
+            return <Row key={complaint.ticketNo} resolved={complaint.ComplaintStatus.map(d => d.isResolved)[0]} complaintDetail={JSON.stringify(complaint.ComplaintDetails.map(d => d.complaintDetail)[0])} complaintCategory={JSON.stringify(complaint.ComplaintCategory.map(d => d.name)[0], (key, value: string) => value.substr(0))} ticketNumber={complaint.ticketNo} />
           })
         }
 

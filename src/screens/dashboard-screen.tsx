@@ -13,6 +13,7 @@ import client from '../../api/api'
 
 export default function Dashbaord(): JSX.Element {
 
+  const [refresh, setRefresh] = useState(false)
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
 
@@ -37,6 +38,7 @@ export default function Dashbaord(): JSX.Element {
   }
 
   useEffect(() => {
+    setRefresh(true)
     getClientData()
   }, [])
 

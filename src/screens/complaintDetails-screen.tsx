@@ -9,23 +9,17 @@ import {
   Dimensions
 } from 'react-native'
 import React, { useState } from 'react'
-import colors from '../assets/colors'
-import { useNavigation } from '@react-navigation/native'
 import HL from '../components/hr'
 import { CheckBox, Input } from 'react-native-elements'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { problems } from '../components/problems'
-import * as ImagePicker from 'expo-image-picker'
-import Icon from 'react-native-vector-icons/FontAwesome5'
 import ImagePick from '../components/ImagePick'
 import { createComplaint } from '../../api/user.api'
-import client from '../../api/api'
 import { fiveDigitNo } from '../utils/random-ticket-no'
 
 // getting height and width of screen
-const { height, width } = Dimensions.get('screen')
+const { width } = Dimensions.get('screen')
 
-export default function ComplaintDetails({ route, navigation }) {
+export default function ComplaintDetails({ route, navigation }: any) {
 
 
   // state
@@ -33,6 +27,7 @@ export default function ComplaintDetails({ route, navigation }) {
   const [isChecked2, setIsChecked2] = useState(false)
   const [isChecked3, setIsChecked3] = useState(false)
   const [isChecked4, setIsChecked4] = useState(false)
+
   // urgent complaint
   const [urgentComplaint, setUrgentComplaint] = useState(false)
 
@@ -48,11 +43,16 @@ export default function ComplaintDetails({ route, navigation }) {
 
   const onSubmit = async () => {
 
-    const ticketNo = fiveDigitNo()
+    console.log(isChecked1, isChecked2, isChecked3, isChecked4)
+    console.log(fiveDigitNo())
+    console.log(photoPath)
+    navigation.navigate('Dashboard')
+    return
+    /*const ticketNo = fiveDigitNo()
     const res = await createComplaint(type, ticketNo, details, urgentComplaint)
     console.log(res.data)
 
-    navigation.navigate('Dashboard')
+    navigation.navigate('Dashboard') */
   }
 
   return (
