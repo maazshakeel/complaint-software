@@ -11,3 +11,5 @@ export default function App() {
     </NavigationContainer>
   )
 }
+
+// comment from maaz ipad ^-^!
