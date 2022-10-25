@@ -12,6 +12,10 @@ const getComplaints = async (email: string) => {
       },
     }
   )
+  console.log(`Complaints${getComplaint.data} type: ${typeof(getComplaint.data)}`)
+  if (getComplaint.data === "NoComplaint") {
+    return null
+  }
   return getComplaint.data
 }
 

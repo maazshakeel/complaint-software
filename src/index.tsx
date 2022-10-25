@@ -13,7 +13,7 @@ import RegisterScreen from './screens/register-screen'
 
 const StackRoot = createNativeStackNavigator()
 
-const Root = () => {
+const Navigator = () => {
   return (
     <StackRoot.Navigator initialRouteName="Login">
       <StackRoot.Screen
@@ -95,4 +95,4 @@ const Root = () => {
   )
 }
 
-export default Root
+export { Navigator }

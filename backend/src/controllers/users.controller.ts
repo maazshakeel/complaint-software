@@ -29,7 +29,7 @@ const clientId = async (req: Request, res: Response) => {
       }
     })
     console.log(clientId)
-    return res.send(clientId.id)
+    return res.send(clientId?.id)
   }
   // check errors
   main()

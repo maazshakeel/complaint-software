@@ -38,8 +38,8 @@ export default function RegisterScreen() {
       lastName: lastName,
       cnic: cnic,
       block: block,
-      homeNo: 12344,
-      phoneNo: "099468994",
+      homeNo: 4493,
+      phoneNo: "039368994",
       email: email,
       password: password
     });

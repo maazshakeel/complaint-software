@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react'
-import { ScrollView, View, Text, ActivityIndicator } from 'react-native'
+import { ScrollView, View, Text, ActivityIndicator, Alert } from 'react-native'
 import Row from './Row'
 import client from '../../api/api'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -16,6 +16,12 @@ const ComplaintList = ({ email }) => {
   const myComplaints = async () => {
     console.log(await AsyncStorage.getItem('user_token'))
     const complaints = await getComplaints(email)
+    if (complaints === null)
+    {
+      console.log("nt")
+      setComplaints(null)
+      return;
+    }
     const details = complaints.map(complaint => complaint.ComplaintDetails)
     const sub_data = details.map(d => d[0])
     const ticketNo = complaints.map(complaint => complaint.ticketNo)
@@ -36,7 +42,7 @@ const ComplaintList = ({ email }) => {
   if (complaints === null) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size="large" />
+        <Text>Loading...</Text>
       </View>
     )
   }

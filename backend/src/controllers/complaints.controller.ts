@@ -43,7 +43,7 @@ const createComplaint = (req: Request, res: Response) => {
             type: complaintType.type
           }
         },
-        clientId: "a106d6bb-0d42-48ef-9c96-9c038e88842c"
+        clientId: user_id.id
       },
     })
     return res.send("Created complaint!")
@@ -146,9 +146,7 @@ const getComplaints = (req: Request, res: Response) => {
         ComplaintType: true
       }
     })
-    if (!complaints) {
-      console.log("No compalint")
-    }
+    console.log(complaints)
     return res.send(complaints)
   }
   // check errors
